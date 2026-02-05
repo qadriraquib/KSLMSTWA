@@ -23,13 +23,44 @@ import {
 } from './ui/navigation-menu';
 import logo from '@/assets/logo.png';
 
-const districts = [
-  { id: 'bengaluru', name: 'Bengaluru Urban', nameKn: 'ಬೆಂಗಳೂರು ನಗರ', nameUr: 'بنگلور شہری' },
-  { id: 'mysuru', name: 'Mysuru', nameKn: 'ಮೈಸೂರು', nameUr: 'میسور' },
-  { id: 'mangaluru', name: 'Dakshina Kannada', nameKn: 'ದಕ್ಷಿಣ ಕನ್ನಡ', nameUr: 'دکشنا کنڑ' },
-  { id: 'belagavi', name: 'Belagavi', nameKn: 'ಬೆಳಗಾವಿ', nameUr: 'بلگاوی' },
-  { id: 'hubli', name: 'Hubli-Dharwad', nameKn: 'ಹುಬ್ಬಳ್ಳಿ-ಧಾರವಾಡ', nameUr: 'ہبلی-دھاروار' },
+export const districts = [
+  { id: 'bagalkot', name: 'Bagalkot', nameKn: 'ಬಾಗಲಕೋಟೆ' },
+  { id: 'ballari', name: 'Ballari', nameKn: 'ಬಳ್ಳಾರಿ' },
+  { id: 'belagavi', name: 'Belagavi', nameKn: 'ಬೆಳಗಾವಿ' },
+  { id: 'bengaluru-rural', name: 'Bengaluru Rural', nameKn: 'ಬೆಂಗಳೂರು ಗ್ರಾಮಾಂತರ' },
+  { id: 'bengaluru-urban', name: 'Bengaluru Urban', nameKn: 'ಬೆಂಗಳೂರು ನಗರ' },
+  { id: 'bidar', name: 'Bidar', nameKn: 'ಬೀದರ್' },
+  { id: 'chamarajanagar', name: 'Chamarajanagar', nameKn: 'ಚಾಮರಾಜನಗರ' },
+  { id: 'chikkaballapur', name: 'Chikkaballapur', nameKn: 'ಚಿಕ್ಕಬಳ್ಳಾಪುರ' },
+  { id: 'chikkamagaluru', name: 'Chikkamagaluru', nameKn: 'ಚಿಕ್ಕಮಗಳೂರು' },
+  { id: 'chitradurga', name: 'Chitradurga', nameKn: 'ಚಿತ್ರದುರ್ಗ' },
+  { id: 'dakshina-kannada', name: 'Dakshina Kannada', nameKn: 'ದಕ್ಷಿಣ ಕನ್ನಡ' },
+  { id: 'davanagere', name: 'Davanagere', nameKn: 'ದಾವಣಗೆರೆ' },
+  { id: 'dharwad', name: 'Dharwad', nameKn: 'ಧಾರವಾಡ' },
+  { id: 'gadag', name: 'Gadag', nameKn: 'ಗದಗ' },
+  { id: 'hassan', name: 'Hassan', nameKn: 'ಹಾಸನ' },
+  { id: 'haveri', name: 'Haveri', nameKn: 'ಹಾವೇರಿ' },
+  { id: 'kalaburagi', name: 'Kalaburagi', nameKn: 'ಕಲಬುರಗಿ' },
+  { id: 'kodagu', name: 'Kodagu', nameKn: 'ಕೊಡಗು' },
+  { id: 'kolar', name: 'Kolar', nameKn: 'ಕೋಲಾರ' },
+  { id: 'koppal', name: 'Koppal', nameKn: 'ಕೊಪ್ಪಳ' },
+  { id: 'mandya', name: 'Mandya', nameKn: 'ಮಂಡ್ಯ' },
+  { id: 'mysuru', name: 'Mysuru', nameKn: 'ಮೈಸೂರು' },
+  { id: 'raichur', name: 'Raichur', nameKn: 'ರಾಯಚೂರು' },
+  { id: 'ramanagara', name: 'Ramanagara', nameKn: 'ರಾಮನಗರ' },
+  { id: 'shivamogga', name: 'Shivamogga', nameKn: 'ಶಿವಮೊಗ್ಗ' },
+  { id: 'tumakuru', name: 'Tumakuru', nameKn: 'ತುಮಕೂರು' },
+  { id: 'udupi', name: 'Udupi', nameKn: 'ಉಡುಪಿ' },
+  { id: 'uttara-kannada', name: 'Uttara Kannada', nameKn: 'ಉತ್ತರ ಕನ್ನಡ' },
+  { id: 'vijayanagara', name: 'Vijayanagara', nameKn: 'ವಿಜಯನಗರ' },
+  { id: 'vijayapura', name: 'Vijayapura', nameKn: 'ವಿಜಯಪುರ' },
+  { id: 'yadgir', name: 'Yadgir', nameKn: 'ಯಾದಗಿರಿ' }
 ];
+
+function normalizeDistrict(name: string): string {
+  return name.toLowerCase().replace(/\s+/g, '-').trim();
+}
+
 
 // Teacher resource categories
 const teacherResourceCategories = [
@@ -81,8 +112,8 @@ export const Header = () => {
     switch (i18n.language) {
       case 'kn':
         return district.nameKn;
-      case 'ur':
-        return district.nameUr;
+      // case 'ur':
+      //   return district.nameUr;
       default:
         return district.name;
     }
@@ -142,26 +173,33 @@ export const Header = () => {
                   </Link>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>{t('members')}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-64 p-4 bg-popover">
-                      <p className="text-sm font-semibold mb-2">{t('districts.title')}</p>
-                      <ul className="space-y-2">
-                        {districts.map((district) => (
-                          <li key={district.id}>
-                            <Link
-                              to={`/district/${district.id}`}
-                              className="block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                            >
-                              {getDistrictName(district)}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+              <DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <button className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors inline-flex items-center gap-1">
+      {t('members')}
+      <ChevronDown className="h-4 w-4" />
+    </button>
+  </DropdownMenuTrigger>
+
+<DropdownMenuContent
+  align="start"
+  className="bg-popover w-56 max-h-72 overflow-y-auto"
+>
+  <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground sticky top-0 bg-popover z-10">
+    {t('districts.title')}
+  </div>
+
+  {districts.map((district) => (
+    <DropdownMenuItem key={district.id} asChild>
+      <Link to={`/district/${district.id}`}>
+        {getDistrictName(district)}
+      </Link>
+    </DropdownMenuItem>
+  ))}
+</DropdownMenuContent>
+
+</DropdownMenu>
+
 
                 {/* Resources Dropdown - Using pure DropdownMenu for proper nesting */}
                 <DropdownMenu>

@@ -74,6 +74,13 @@ const TeacherResources = () => {
     if (subject && r.subject !== subject) return false;
     return true;
   });
+const pdfResources = filteredResources.filter(
+  (r) => r.type === "pdf"
+);
+
+const videoResources = filteredResources.filter(
+  (r) => r.type === "video"
+);
 
   const selectedCategory = resourceCategories.find(c => c.id === category);
   const selectedClass = classes.find(c => c.id === classId);
@@ -113,6 +120,17 @@ const handleDownload = (resource: TeacherResource) => {
   if (resource.type === 'video' && resource.youtubeUrl) {
     window.open(resource.youtubeUrl, '_blank');
   }
+};
+const getYoutubeEmbedUrl = (url?: string) => {
+  if (!url) return "";
+
+  const regExp =
+    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+
+  return match && match[2].length === 11
+    ? `https://www.youtube.com/embed/${match[2]}`
+    : "";
 };
 
 
@@ -247,35 +265,98 @@ const handleDownload = (resource: TeacherResource) => {
             
             {filteredResources.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                {filteredResources.map((resource) => (
-                  <Card key={resource.id}>
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-2">
-                          {resource.type === 'pdf' ? (
-                            <FileText className="h-5 w-5 text-red-500" />
-                          ) : (
-                            <Video className="h-5 w-5 text-blue-500" />
-                          )}
-                          <CardTitle className="text-base">{resource.title}</CardTitle>
-                        </div>
-                        <Badge variant={resource.type === 'pdf' ? 'destructive' : 'default'}>
-                          {resource.type.toUpperCase()}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <Button 
-                        className="w-full" 
-                        variant="outline"
-                        onClick={() => handleDownload(resource)}
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        {resource.type === 'pdf' ? 'Download PDF' : 'Watch Video'}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
+               {/* Step 4: Show Resources */}
+{category && classId && subject && (
+  <div className="space-y-10">
+    <h2 className="text-2xl font-semibold text-center">
+      {subject} - Class {selectedClass?.roman} - {selectedCategory?.name}
+    </h2>
+
+    {/* ================= PDF SECTION ================= */}
+    {pdfResources.length > 0 && (
+      <div>
+        <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <FileText className="text-red-500" />
+          PDF Resources
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {pdfResources.map((resource) => (
+            <Card key={resource.id}>
+              <CardHeader>
+                <CardTitle className="text-base">{resource.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  onClick={() =>
+                    window.open(
+                      `http://127.0.0.1:8000/${resource.filePath}`,
+                      "_blank"
+                    )
+                  }
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Download PDF
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* ================= VIDEO SECTION ================= */}
+    {videoResources.length > 0 && (
+      <div>
+        <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Video className="text-blue-500" />
+          Video Resources
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {videoResources.map((resource) => (
+            <Card key={resource.id}>
+              <CardHeader>
+                <CardTitle className="text-base">{resource.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {/* Embedded Player */}
+                <div className="aspect-video">
+                <div className="relative w-full overflow-hidden rounded-lg"
+     style={{ paddingTop: "56.25%" }}  // 16:9
+>
+  <iframe
+    src={getYoutubeEmbedUrl(resource.youtubeUrl)}
+    className="absolute top-0 left-0 w-full h-full"
+    title={resource.title}
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
+</div>
+
+                </div>
+
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* ================= EMPTY STATE ================= */}
+    {pdfResources.length === 0 && videoResources.length === 0 && (
+      <div className="text-center py-12">
+        <p className="text-muted-foreground">
+          No resources available for this selection yet.
+        </p>
+      </div>
+    )}
+  </div>
+)}
+
               </div>
             ) : (
               <div className="text-center py-12">
