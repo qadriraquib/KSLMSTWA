@@ -46,7 +46,7 @@ const resources = {
       // Gallery
       galleryPage: {
         title: 'Photo Gallery',
-        subtitle: 'Moments from our educational journey',
+        subtitle: 'Moments from our Association journey',
       },
       
       // Blog
@@ -140,75 +140,7 @@ const resources = {
       viewAll: 'ಎಲ್ಲವನ್ನೂ ವೀಕ್ಷಿಸಿ',
     },
   },
-  ur: {
-    translation: {
-      // Navigation
-      home: 'گھر',
-      about: 'کے بارے میں',
-      vision: 'وژن اور مشن',
-      members: 'تنظیم کے اراکین',
-      resources: 'وسائل',
-      gallery: 'گیلری',
-      blog: 'بلاگ اور خبریں',
-      contact: 'رابطہ کریں',
-      
-      // Districts
-      districts: {
-        title: 'کرناٹک اضلاع',
-        bengaluru: 'بنگلور شہری',
-        mysuru: 'میسور',
-        mangaluru: 'دکشنا کنڑ',
-        belagavi: 'بلگاوی',
-        hubli: 'ہبلی-دھاروار',
-      },
-      
-      // Homepage
-      hero: {
-        title: 'کرناٹک میں تعلیم کو بااختیار بنانا',
-        subtitle: 'معیاری تعلیم اور کمیونٹی کی شمولیت کے ذریعے روشن مستقبل کی تعمیر',
-      },
-      testimonials: {
-        title: 'لوگ کیا کہتے ہیں',
-      },
-      circulars: {
-        title: 'تازہ ترین سرکلرز',
-      },
-      
-      // Resources
-      resourcesPage: {
-        title: 'تعلیمی وسائل',
-        subtitle: 'معیاری سیکھنے کے مواد اور وسائل تک رسائی',
-        subjects: 'مضامین',
-      },
-      
-      // Gallery
-      galleryPage: {
-        title: 'فوٹو گیلری',
-        subtitle: 'ہمارے تعلیمی سفر کے لمحات',
-      },
-      
-      // Blog
-      blogPage: {
-        title: 'خبریں اور اپ ڈیٹس',
-        subtitle: 'تازہ ترین خبریں اور پریس کوریج',
-      },
-      
-      // Contact
-      contactPage: {
-        title: 'رابطے میں رہیں',
-        subtitle: 'ہم آپ سے سننا پسند کریں گے',
-        name: 'نام',
-        email: 'ای میل',
-        message: 'پیغام',
-        send: 'پیغام بھیجیں',
-      },
-      
-      // Common
-      learnMore: 'مزید جانیے',
-      download: 'ڈاؤن لوڈ',
-      viewAll: 'سب دیکھیں',
-    },
-  },
+  
 };
 
 i18n

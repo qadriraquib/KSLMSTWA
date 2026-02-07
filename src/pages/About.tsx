@@ -12,7 +12,7 @@ const About = () => {
           <section className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">About Our Organization</h2>
             <p className="text-muted-foreground mb-4">
-              Karnataka Education Development Organization (KEDO) is a dedicated non-profit organization 
+              Karnataka State Linguistic Minorities (KEDO) is a dedicated non-profit organization 
               committed to transforming education across Karnataka. Established with the vision of providing 
               quality education to all, we work tirelessly to bridge educational gaps and empower communities.
             </p>

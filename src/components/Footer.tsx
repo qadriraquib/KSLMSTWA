@@ -11,7 +11,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Karnataka Education Development Organization</h3>
+            <h3 className="text-lg font-semibold mb-4">Karnataka State Linguistic Minorities</h3>
             <p className="text-sm opacity-90">
               Empowering education across Karnataka through quality resources, community engagement, and dedicated support.
             </p>
@@ -65,7 +65,7 @@ export const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-75">
-          <p>© {new Date().getFullYear()} Karnataka Education Development Organization. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Karnataka State Linguistic Minorities. All rights reserved.</p>
         </div>
       </div>
     </footer>

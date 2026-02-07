@@ -1,119 +1,154 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getCirculars, saveCircular, deleteCircular, Circular } from "@/lib/storage";
-import { useToast } from "@/hooks/use-toast";
 import { Trash2, Plus } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import {
+  fetchCirculars,
+  createCircular,
+  updateCircular,
+  deleteCircularApi,
+} from "@/lib/api/circular";
 
 export function CircularsManager() {
-  const [circulars, setCirculars] = useState<Circular[]>([]);
-  const [formData, setFormData] = useState({
+  const [circulars, setCirculars] = useState<any[]>([]);
+  const [form, setForm] = useState<any>({
     id: "",
     title: "",
-    url: "",
     date: "",
+    pdf: null,
   });
+
   const { toast } = useToast();
 
+  // 🔹 Fetch circulars
   useEffect(() => {
-    setCirculars(getCirculars());
+    fetchCirculars().then(setCirculars);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // 🔹 Submit (Add / Update)
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const circular: Circular = {
-      ...formData,
-      id: formData.id || Date.now().toString(),
-    };
-    saveCircular(circular);
-    setCirculars(getCirculars());
-    setFormData({ id: "", title: "", url: "", date: "" });
-    toast({
-      title: "Success",
-      description: "Circular saved successfully",
-    });
+
+    const fd = new FormData();
+    fd.append("title", form.title);
+    fd.append("date", form.date);
+    if (form.pdf) fd.append("pdf", form.pdf);
+
+    if (form.id) {
+      await updateCircular(form.id, fd);
+      toast({ title: "Updated", description: "Circular updated" });
+    } else {
+      await createCircular(fd);
+      toast({ title: "Created", description: "Circular added" });
+    }
+
+    setCirculars(await fetchCirculars());
+    setForm({ id: "", title: "", date: "", pdf: null });
   };
 
-  const handleDelete = (id: string) => {
-    deleteCircular(id);
-    setCirculars(getCirculars());
-    toast({
-      title: "Deleted",
-      description: "Circular deleted successfully",
+  // 🔹 Delete with confirmation
+  const handleDelete = async (id: string) => {
+    const ok = window.confirm("Are you sure you want to delete this circular?");
+    if (!ok) return;
+
+    await deleteCircularApi(id);
+    setCirculars(await fetchCirculars());
+
+    toast({ title: "Deleted", description: "Circular deleted" });
+  };
+
+  // 🔹 Edit
+  const handleEdit = (c: any) => {
+    setForm({
+      id: c.id,
+      title: c.title,
+      date: c.date,
+      pdf: null, // optional re-upload
     });
   };
 
   return (
     <div className="space-y-6">
+      {/* ADD / EDIT FORM */}
       <Card>
         <CardHeader>
-          <CardTitle>Add/Edit Circular</CardTitle>
+          <CardTitle>Add / Edit Circular</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="date">Date</Label>
-                <Input
-                  id="date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="url">PDF URL</Label>
-                <Input
-                  id="url"
-                  value={formData.url}
-                  onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                  placeholder="https://example.com/circular.pdf"
-                  required
-                />
-              </div>
-            </div>
-            <Button type="submit">
-              <Plus className="mr-2 h-4 w-4" />
-              {formData.id ? "Update" : "Add"} Circular
-            </Button>
+            <Input
+              placeholder="Title"
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              required
+            />
+
+            <Input
+              type="date"
+              value={form.date}
+              onChange={(e) => setForm({ ...form, date: e.target.value })}
+              required
+            />
+
+          <Input
+  type="file"
+  accept="application/pdf"
+  onChange={(e) =>
+    setForm({ ...form, pdf: e.target.files?.[0] || null })
+  }
+/>
+
+{!form.pdf && (
+  <p className="text-xs text-destructive">
+    Please select a PDF to continue
+  </p>
+)}
+
+            <Button
+  type="submit"
+  disabled={!form.pdf}
+>
+  <Plus className="mr-2 h-4 w-4" />
+  {form.id ? "Update" : "Add"} Circular
+</Button>
+
           </form>
         </CardContent>
       </Card>
 
+      {/* LIST */}
       <Card>
         <CardHeader>
-          <CardTitle>Circulars List</CardTitle>
+          <CardTitle>All Circulars</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {circulars.map((circular) => (
-              <div key={circular.id} className="flex items-center justify-between p-4 border rounded-lg">
-                <div>
-                  <h4 className="font-semibold">{circular.title}</h4>
-                  <p className="text-sm text-muted-foreground">{circular.date}</p>
-                </div>
+        <CardContent className="space-y-3">
+          {circulars.map((c) => (
+            <div
+              key={c.id}
+              className="flex justify-between items-center p-3 border rounded"
+            >
+              <div>
+                <p className="font-semibold">{c.title}</p>
+                <p className="text-xs text-muted-foreground">{c.date}</p>
+              </div>
+
+              <div className="flex gap-2">
+                <Button size="sm" variant="outline" onClick={() => handleEdit(c)}>
+                  Edit
+                </Button>
+
                 <Button
-                  variant="destructive"
                   size="sm"
-                  onClick={() => handleDelete(circular.id)}
+                  variant="destructive"
+                  onClick={() => handleDelete(c.id)}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>

@@ -1,29 +1,28 @@
-import { useTranslation } from 'react-i18next';
-import { HeroCarousel } from '@/components/HeroCarousel';
-import { VerticalMarquee } from '@/components/VerticalMarquee';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Quote } from 'lucide-react';
-
-const testimonials = [
-  {
-    name: 'Dr. Rajesh Kumar',
-    role: 'Principal, Government School',
-    content: 'The resources provided by KEDO have significantly improved our teaching quality and student engagement.',
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'Teacher, Primary Education',
-    content: 'Outstanding support and training programs. The digital learning materials are excellent.',
-  },
-  {
-    name: 'Mohammed Ali',
-    role: 'District Coordinator',
-    content: 'KEDO\'s commitment to educational excellence across all districts is truly commendable.',
-  },
-];
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { HeroCarousel } from "@/components/HeroCarousel";
+import { VerticalMarquee } from "@/components/VerticalMarquee";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Quote } from "lucide-react";
 
 const Index = () => {
   const { t } = useTranslation();
+
+  // ✅ Hooks MUST be inside the component
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/testimonials")
+      .then((res) => res.json())
+      .then(setTestimonials)
+      .catch(console.error);
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -35,10 +34,10 @@ const Index = () => {
         {/* Welcome Section */}
         <section className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
-            {t('hero.title')}
+            {t("hero.title")}
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            {t('hero.subtitle')}
+            {t("hero.subtitle")}
           </p>
         </section>
 
@@ -50,10 +49,13 @@ const Index = () => {
 
           {/* Testimonials */}
           <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold mb-8">{t('testimonials.title')}</h2>
+            <h2 className="text-3xl font-bold mb-8">
+              {t("testimonials.title")}
+            </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="bg-secondary/30">
+              {testimonials.map((testimonial: any) => (
+                <Card key={testimonial.id} className="bg-secondary/30">
                   <CardHeader>
                     <Quote className="h-8 w-8 text-accent mb-2" />
                     <CardDescription className="text-base italic">
@@ -61,10 +63,10 @@ const Index = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div>
-                      <p className="font-semibold">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                    </div>
+                    <p className="font-semibold">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {testimonial.role}
+                    </p>
                   </CardContent>
                 </Card>
               ))}
@@ -77,25 +79,36 @@ const Index = () => {
           <Card className="text-center bg-primary text-primary-foreground">
             <CardHeader>
               <CardTitle className="text-4xl font-bold">30+</CardTitle>
-              <CardDescription className="text-primary-foreground/80">Districts Covered</CardDescription>
+              <CardDescription className="text-primary-foreground/80">
+                Districts Covered
+              </CardDescription>
             </CardHeader>
           </Card>
+
           <Card className="text-center bg-accent text-accent-foreground">
             <CardHeader>
               <CardTitle className="text-4xl font-bold">500+</CardTitle>
-              <CardDescription className="text-accent-foreground/80">Team Members</CardDescription>
+              <CardDescription className="text-accent-foreground/80">
+                Team Members
+              </CardDescription>
             </CardHeader>
           </Card>
+
           <Card className="text-center bg-education-green text-white">
             <CardHeader>
               <CardTitle className="text-4xl font-bold">1000+</CardTitle>
-              <CardDescription className="text-white/80">Resources Shared</CardDescription>
+              <CardDescription className="text-white/80">
+                Resources Shared
+              </CardDescription>
             </CardHeader>
           </Card>
+
           <Card className="text-center bg-muted">
             <CardHeader>
               <CardTitle className="text-4xl font-bold">50K+</CardTitle>
-              <CardDescription className="text-muted-foreground">Students Impacted</CardDescription>
+              <CardDescription className="text-muted-foreground">
+                Students Impacted
+              </CardDescription>
             </CardHeader>
           </Card>
         </section>

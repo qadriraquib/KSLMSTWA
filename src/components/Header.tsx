@@ -21,7 +21,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from './ui/navigation-menu';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo1.png';
 
 export const districts = [
   { id: 'bagalkot', name: 'Bagalkot', nameKn: 'ಬಾಗಲಕೋಟೆ' },
@@ -135,24 +135,55 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
       <div className="container mx-auto px-4">
         {/* Top bar with org name */}
         <div className="py-2 text-center border-b">
           <h1 className="text-lg font-semibold text-primary">
-            Karnataka Education Development Organization
+            Karnataka State Linguistic Minorities
           </h1>
         </div>
 
         {/* Main header */}
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link
+  to="/"
+  className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 z-40"
+>
+  <img
+    src={logo}
+    alt="Logo"
+    className="h-24 w-24 object-contain"
+  />
+</Link>
+<Link
+  to="/"
+  className="md:hidden flex items-center"
+>
+  <img
+    src={logo}
+    alt="Logo"
+    className="h-12 w-12 object-contain"
+  />
+</Link>
+
+          {/* <Link
+  to="/"
+  className="absolute left-4 top-1/2 -translate-y-1/2 z-50"
+>
+  <img
+    src={logo}
+    alt="Logo"
+    className="h-24 w-24 object-contain"
+  />
+</Link> */}
+ {/* <Link to="/" className="flex items-center space-x-3">
             <img src={logo} alt="Logo" className="h-12 w-12" />
-          </Link>
+          </Link> */}
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-6 ml-auto">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -263,11 +294,11 @@ export const Header = () => {
                   </Link>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                   <Link to="/blog" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
                     {t('blog')}
                   </Link>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
 
                 <NavigationMenuItem>
                   <Link to="/contact" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">

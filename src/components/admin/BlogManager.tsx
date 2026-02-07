@@ -1,157 +1,165 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getBlogPosts, saveBlogPost, deleteBlogPost, BlogPost } from "@/lib/storage";
+import { Trash2, Plus, Pen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, Plus } from "lucide-react";
 
 export function BlogManager() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [formData, setFormData] = useState({
-    id: "",
-    title: "",
-    excerpt: "",
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [form, setForm] = useState<any>({
+    name: "",
+    role: "",
     content: "",
-    image: "",
-    date: "",
-    author: "",
   });
+const [editId, setEditId] = useState<string | null>(null);
+
   const { toast } = useToast();
 
-  useEffect(() => {
-    setPosts(getBlogPosts());
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const post: BlogPost = {
-      ...formData,
-      id: formData.id || Date.now().toString(),
-    };
-    saveBlogPost(post);
-    setPosts(getBlogPosts());
-    setFormData({ id: "", title: "", excerpt: "", content: "", image: "", date: "", author: "" });
-    toast({
-      title: "Success",
-      description: "Blog post saved successfully",
-    });
+  /* ---------------- LOAD TESTIMONIALS ---------------- */
+  const loadTestimonials = () => {
+    fetch("http://127.0.0.1:8000/testimonials")
+      .then(res => res.json())
+      .then(setTestimonials);
   };
 
-  const handleDelete = (id: string) => {
-    deleteBlogPost(id);
-    setPosts(getBlogPosts());
+  useEffect(() => {
+    loadTestimonials();
+  }, []);
+
+  /* ---------------- ADD TESTIMONIAL ---------------- */
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const url = editId
+    ? `http://127.0.0.1:8000/testimonials/${editId}`
+    : "http://127.0.0.1:8000/testimonials";
+
+  const method = editId ? "PUT" : "POST";
+
+  await fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form),
+  });
+
+  toast({
+    title: "Success",
+    description: editId
+      ? "Testimonial updated successfully"
+      : "Testimonial added successfully",
+  });
+
+  setForm({ name: "", role: "", content: "" });
+  setEditId(null);        // ✅ important: exit edit mode
+  loadTestimonials();
+};
+
+  // edit
+const handleEdit = (t: any) => {
+  setForm({
+    name: t.name,
+    role: t.role,
+    content: t.content,
+  });
+  setEditId(t.id);
+};
+
+  /* ---------------- DELETE TESTIMONIAL ---------------- */
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this testimonial?")) return;
+
+    await fetch(`http://127.0.0.1:8000/testimonials/${id}`, {
+      method: "DELETE",
+    });
+
     toast({
       title: "Deleted",
-      description: "Blog post deleted successfully",
+      description: "Testimonial deleted",
     });
+
+    loadTestimonials();
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+
+      {/* ================= ADD TESTIMONIAL ================= */}
       <Card>
         <CardHeader>
-          <CardTitle>Add/Edit Blog Post</CardTitle>
+          <CardTitle>Add Testimonial</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="author">Author</Label>
-                <Input
-                  id="author"
-                  value={formData.author}
-                  onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="date">Date</Label>
-                <Input
-                  id="date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="image">Image URL</Label>
-                <Input
-                  id="image"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                  required
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="excerpt">Excerpt</Label>
-                <Textarea
-                  id="excerpt"
-                  value={formData.excerpt}
-                  onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="content">Content</Label>
-                <Textarea
-                  id="content"
-                  value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  rows={6}
-                  required
-                />
-              </div>
-            </div>
+            <Input
+              placeholder="Name"
+              value={form.name}
+              onChange={e => setForm({ ...form, name: e.target.value })}
+              required
+            />
+            <Input
+              placeholder="Role"
+              value={form.role}
+              onChange={e => setForm({ ...form, role: e.target.value })}
+              required
+            />
+            <Textarea
+              placeholder="Testimonial content"
+              value={form.content}
+              onChange={e => setForm({ ...form, content: e.target.value })}
+              required
+            />
             <Button type="submit">
               <Plus className="mr-2 h-4 w-4" />
-              {formData.id ? "Update" : "Add"} Blog Post
+              Add Testimonial
             </Button>
           </form>
         </CardContent>
       </Card>
 
+      {/* ================= TESTIMONIAL LIST ================= */}
       <Card>
         <CardHeader>
-          <CardTitle>Blog Posts</CardTitle>
+          <CardTitle>Testimonials</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {posts.map((post) => (
-              <div key={post.id} className="flex items-start justify-between p-4 border rounded-lg">
-                <div className="flex gap-4">
-                  <img src={post.image} alt={post.title} className="w-20 h-20 object-cover rounded" />
-                  <div>
-                    <h4 className="font-semibold">{post.title}</h4>
-                    <p className="text-sm text-muted-foreground">{post.author} - {post.date}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{post.excerpt}</p>
-                  </div>
-                </div>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleDelete(post.id)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+        <CardContent className="space-y-3">
+          {testimonials.length === 0 && (
+            <p className="text-sm text-muted-foreground">No testimonials added yet.</p>
+          )}
+
+          {testimonials.map(t => (
+            <div
+              key={t.id}
+              className="flex justify-between gap-4 border p-4 rounded-lg"
+            >
+              <div>
+                <p className="font-semibold">{t.name}</p>
+                <p className="text-sm text-muted-foreground">{t.role}</p>
+                <p className="text-xs mt-2">{t.content}</p>
               </div>
-            ))}
-          </div>
+<Button
+  size="sm"
+  variant="outline"
+  onClick={() => handleEdit(t)}
+>
+ <Pen className="h-4 w-4" />
+</Button>
+
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => handleDelete(t.id)}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
         </CardContent>
       </Card>
+
     </div>
   );
 }
