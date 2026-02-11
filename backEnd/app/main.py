@@ -16,6 +16,9 @@ from app.routers import (
     testimonial as testimonial_router,
     gallery
 )
+from app.routers import membership
+
+
 
 # ✅ 1. Create app FIRST
 app = FastAPI(title="Linguistic Platform API")
@@ -23,15 +26,14 @@ app = FastAPI(title="Linguistic Platform API")
 # ✅ 2. Add CORS middleware (MINIMAL FIX)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:8080",
-        "http://127.0.0.1:8000",
-        "http://localhost:5432",   # ⚠️ Vite fallback
-    ],
+    allow_origins=["http://localhost:8080"],
     allow_credentials=True,
-    allow_methods=["*"],         # PUT, POST, DELETE, OPTIONS
-    allow_headers=["*"],         # multipart/form-data
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+app.include_router(teacher_resource_router.router)
+
 
 # ⚠️ Enable only after DB password is correct
 # Base.metadata.create_all(bind=engine)
@@ -42,6 +44,6 @@ app.include_router(teacher_resource_router.router)
 app.include_router(circular_router.router)
 app.include_router(testimonial_router.router)
 app.include_router(gallery.router, prefix="/api")
-
+app.include_router(membership.router, prefix="/api")
 # ✅ 4. Serve uploaded files
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")

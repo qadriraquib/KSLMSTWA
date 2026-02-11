@@ -10,6 +10,7 @@ import { GalleryManager } from "@/components/admin/GalleryManager";
 import { CircularsManager } from "@/components/admin/CircularsManager";
 import { BlogManager } from "@/components/admin/BlogManager";
 import { TeacherResourcesManager } from "@/components/admin/TeacherResourcesManager";
+import MembershipManager from "@/components/admin/MembershipManager";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
             <TabsTrigger value="circulars">Circulars</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
+             <TabsTrigger value="memberships">Association Members</TabsTrigger>
           </TabsList>
 
           <TabsContent value="team" className="mt-6">
@@ -70,6 +72,9 @@ export default function AdminDashboard() {
 
           <TabsContent value="blog" className="mt-6">
             <BlogManager />
+          </TabsContent>
+           <TabsContent value="memberships" className="mt-6">
+            <MembershipManager />
           </TabsContent>
         </Tabs>
       </main>

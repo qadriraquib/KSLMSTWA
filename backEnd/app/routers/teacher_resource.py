@@ -12,22 +12,33 @@ router = APIRouter(
     prefix="/teacher-resources",
     tags=["Teacher Resources"]
 )
+from uuid import UUID
+
 @router.delete("/{resource_id}")
 def delete_resource(
-    resource_id: str,
+    resource_id: UUID,
     db: Session = Depends(get_db)
 ):
     resource = db.query(TeacherResource).filter(
         TeacherResource.id == resource_id
     ).first()
 
-    if not resource:
-        raise HTTPException(status_code=404, detail="Resource not found")
+# @router.delete("/{resource_id}")
+# def delete_resource(
+#     resource_id: str,
+#     db: Session = Depends(get_db)
+# ):
+#     resource = db.query(TeacherResource).filter(
+#         TeacherResource.id == resource_id
+#     ).first()
 
-    db.delete(resource)
-    db.commit()
+#     if not resource:
+#         raise HTTPException(status_code=404, detail="Resource not found")
 
-    return {"message": "Deleted successfully"}
+#     db.delete(resource)
+#     db.commit()
+
+#     return {"message": "Deleted successfully"}
 
 # ------------------------
 # GET (LIST / FILTER)

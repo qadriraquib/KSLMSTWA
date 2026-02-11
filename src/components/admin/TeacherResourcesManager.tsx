@@ -30,14 +30,14 @@ const classes = [
 ];
 
 const subjectsByClass: Record<string, string[]> = {
-  '1': ['English', 'Mathematics', 'EVS', 'Hindi', 'Marathi'],
-  '2': ['English', 'Mathematics', 'EVS', 'Hindi', 'Marathi'],
-  '3': ['English', 'Mathematics', 'EVS', 'Hindi', 'Marathi'],
-  '4': ['English', 'Mathematics', 'EVS', 'Hindi', 'Marathi'],
-  '5': ['English', 'Mathematics', 'Science', 'Social Studies', 'Hindi', 'Marathi'],
-  '6': ['English', 'Mathematics', 'Science', 'Social Studies', 'Hindi', 'Marathi', 'Sanskrit'],
-  '7': ['English', 'Mathematics', 'Science', 'Social Studies', 'Hindi', 'Marathi', 'Sanskrit'],
-  '8': ['English', 'Mathematics', 'Science', 'Social Studies', 'Hindi', 'Marathi', 'Sanskrit'],
+  '1': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
+  '2': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
+  '3': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
+  '4': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
+  '5': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
+  '6': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
+  '7': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
+  '8': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
 };
 
 export function TeacherResourcesManager() {
