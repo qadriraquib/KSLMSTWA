@@ -45,7 +45,7 @@ const HomeImageMarquee = () => {
           alt={image.title}
           className="
             h-44 w-72 object-cover rounded-xl shadow-md
-            grayscale hover:grayscale-0
+             hover:grayscale-0
             transition-all duration-500
             hover:scale-105
           "

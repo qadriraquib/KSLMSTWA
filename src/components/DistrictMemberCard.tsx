@@ -20,18 +20,16 @@ export const DistrictMemberCard = ({ name, designation, photo }: Props) => {
     <>
       {/* Card */}
       <div
-        className="group cursor-pointer"
+        className="group cursor-pointer w-full max-w-[220px]"
         onClick={() => setOpen(true)}
       >
-        <div className="relative overflow-hidden rounded-xl shadow-xl">
+        <div className="relative overflow-hidden rounded-xl shadow-md border bg-white">
           <img
             src={`${API_BASE_URL}/${photo}`}
             alt={name}
             className="
               w-full
-              h-[380px]
-              sm:h-[420px]
-              md:h-[460px]
+              h-[200px]          /* 🔥 Reduced height */
               object-cover
               transition-transform
               duration-300
@@ -42,30 +40,30 @@ export const DistrictMemberCard = ({ name, designation, photo }: Props) => {
           {/* Hover overlay */}
           <div className="
             absolute inset-0
-            bg-black/40
+            bg-black/30
             opacity-0
             group-hover:opacity-100
             transition-opacity
             flex items-center justify-center
           ">
-            <ZoomIn className="w-12 h-12 text-white" />
+            <ZoomIn className="w-8 h-8 text-white" />
           </div>
         </div>
 
         {/* Text */}
-        <div className="text-center mt-4 px-2">
-          <h3 className="text-lg font-semibold leading-tight">
+        <div className="text-center mt-3 px-2">
+          <h3 className="text-base font-semibold leading-tight">
             {name}
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             {designation}
           </p>
         </div>
       </div>
 
-      {/* 🔍 Lightbox Modal */}
+      {/* Lightbox */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-5xl max-h-[90vh] p-2 bg-black">
+        <DialogContent className="max-w-4xl max-h-[90vh] p-2 bg-black">
           <img
             src={`${API_BASE_URL}/${photo}`}
             alt={name}

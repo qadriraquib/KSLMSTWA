@@ -8,7 +8,6 @@ import { DISTRICT_TALUKAS } from "@/lib/talukaData";
 import { fetchPublicTeamMembers } from "@/lib/api/teamMembers";
 import { TeamMember } from "@/lib/storage";
 
-import { TeamMemberCard } from "@/components/TeamMemberCard";
 import { TalukaModal } from "@/components/TalukaModal";
 import { DistrictMemberCard } from "@/components/DistrictMemberCard";
 
@@ -27,7 +26,6 @@ const District = () => {
     );
   }
 
-  // Convert slug to district name
   const districtName =
     DISTRICTS.find(
       (d) => d.toLowerCase().replace(/\s+/g, "-") === districtId
@@ -35,28 +33,23 @@ const District = () => {
 
   const talukas = DISTRICT_TALUKAS[districtName] || [];
 
-  // 🔥 FETCH FROM FASTAPI (ONLY SOURCE)
   useEffect(() => {
     fetchPublicTeamMembers()
-      .then((data) => {
-        console.log("API MEMBERS:", data);
-        setMembers(data);
-      })
+      .then(setMembers)
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
-  // fetchPublicTeamMembers().then(setMembers);
-  // Filter members for this district
+
   const districtMembers = members.filter(
     (m) => m.district.toLowerCase() === districtName.toLowerCase()
   );
 
-  // District-level members (no taluka)
   const districtLevelMembers = districtMembers.filter((m) => !m.taluka);
 
   return (
     <div className="min-h-screen py-16">
       <div className="container mx-auto px-4 space-y-12">
+
         {/* Header */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-primary mb-2">
@@ -67,7 +60,6 @@ const District = () => {
           </p>
         </div>
 
-        {/* Loading / Empty */}
         {loading && (
           <p className="text-center text-muted-foreground">
             Loading members...
@@ -80,31 +72,41 @@ const District = () => {
           </p>
         )}
 
-        {/* District-level members */}
+        {/* ================= DISTRICT LEVEL MEMBERS ================= */}
         {districtLevelMembers.length > 0 && (
-          <div  className="
-    justify-items-center">
-            {/* <h2 className="text-2xl font-semibold mb-6 ">
-              District Level Team
-            </h2> */}
+          <div>
 
-            <div className="
-    justify-items-center">
-              {districtLevelMembers.map((m) => (
-                <DistrictMemberCard
-  key={m.id}
-  name={m.name}
-  designation={m.designation}
-  photo={m.photo}
-/>
+            <div className="flex justify-center">
+              <div
+                className="
+                  grid
+                  gap-10
+                  w-full
+                  max-w-7xl
+                  grid-cols-1
+                  sm:grid-cols-2
+                  md:grid-cols-3
+                  lg:grid-cols-6
+                "
+              >
+                {districtLevelMembers.map((m) => (
+                  <div key={m.id} className="flex justify-center">
+                    <div className="w-64">
+                      <DistrictMemberCard
+                        name={m.name}
+                        designation={m.designation}
+                        photo={m.photo}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-              ))}
-            </div>
-            </div>
-    
+          </div>
         )}
 
-        {/* Talukas */}
+        {/* ================= TALUKAS ================= */}
         {talukas.length > 0 && (
           <div>
             <h2 className="text-2xl font-semibold mb-6">
@@ -136,6 +138,7 @@ const District = () => {
             (m) => m.taluka === selectedTaluka
           )}
         />
+
       </div>
     </div>
   );
