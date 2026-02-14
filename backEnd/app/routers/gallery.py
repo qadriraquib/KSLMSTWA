@@ -22,7 +22,7 @@ def get_gallery(db: Session = Depends(get_db)):
     return [
         {
             "id": str(img.id),
-            "url": f"http://127.0.0.1:8000/uploads/gallery/{img.file_name}",
+            "url": f"/uploads/gallery/{img.file_name}",
             "title": img.title,
             "description": img.description,
         }

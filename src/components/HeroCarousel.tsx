@@ -8,25 +8,27 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import heroImage from '@/assets/hero-education.jpg';
-
-const quotes = [
+import crausImg1 from '@/assets/1.jpeg';
+import crausImg2 from '@/assets/2.jpeg';
+import crausImg3 from '@/assets/3.jpeg';
+const slides = [
   {
-    text: 'Education is the most powerful weapon which you can use to change the world.',
-    author: 'Nelson Mandela',
+    image: crausImg1,
+    text: 'Education must begin in the mother tongue.',
+    author: 'Mahatma Gandhi',
   },
   {
-    text: 'The function of education is to teach one to think intensively and to think critically.',
-    author: 'Martin Luther King Jr.',
+    image: crausImg2,
+    text: 'Basic education thrives when rooted in the mother tongue and regional languages.',
+    author: 'Dr Zakir Husain.',
   },
   {
-    text: 'Education is not preparation for life; education is life itself.',
-    author: 'John Dewey',
-  },
-  {
-    text: 'The beautiful thing about learning is that no one can take it away from you.',
-    author: 'B.B. King',
+    image: crausImg3,
+    text: 'A child’s imagination blossoms best in the mother tongue.',
+    author: 'Rabindranath Tagore',
   },
 ];
+
 
 export const HeroCarousel = () => {
   const [api, setApi] = useState<any>();
@@ -54,22 +56,24 @@ export const HeroCarousel = () => {
         className="w-full"
       >
         <CarouselContent>
-          {quotes.map((quote, index) => (
+         {slides.map((slide, index) => (
+
             <CarouselItem key={index}>
               <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-                <img
-                  src={heroImage}
-                  alt="Education"
-                  className="w-full h-full object-cover"
-                />
+               <img
+  src={slide.image}
+  alt="Education"
+  className="w-full h-full object-cover"
+/>
+
                 <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 flex items-center justify-center">
                   <div className="container mx-auto px-4 text-center">
                     <blockquote className="text-white">
                       <p className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl mx-auto">
-                        "{quote.text}"
+                        "{slide.text}"
                       </p>
                       <footer className="text-lg md:text-xl opacity-90">
-                        — {quote.author}
+                        — {slide.author}
                       </footer>
                     </blockquote>
                   </div>

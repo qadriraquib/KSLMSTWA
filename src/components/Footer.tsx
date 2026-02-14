@@ -13,7 +13,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Karnataka State Linguistic Minorities</h3>
             <p className="text-sm opacity-90">
-              Empowering education across Karnataka through quality resources, community engagement, and dedicated support.
+Together We can And Together We will
             </p>
           </div>
 
@@ -26,11 +26,11 @@ export const Footer = () => {
                   {t('about')}
                 </Link>
               </li>
-              <li>
-                <Link to="/vision" className="text-sm opacity-90 hover:opacity-100 transition-opacity">
-                  {t('vision')}
+              {/* <li>
+                <Link to="/circulars" className="text-sm opacity-90 hover:opacity-100 transition-opacity">
+                  {t('circulars')}
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/resources" className="text-sm opacity-90 hover:opacity-100 transition-opacity">
                   {t('resources')}
@@ -50,15 +50,15 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm opacity-90">
                 <MapPin className="h-5 w-5 shrink-0 mt-0.5" />
-                <span>Bangalore, Karnataka, India</span>
+                <span>#23, 1st Main Road, ST bed Road, 4th Block, Koramangala, Bengaluru, India</span>
               </li>
               <li className="flex items-center gap-2 text-sm opacity-90">
                 <Phone className="h-5 w-5 shrink-0" />
-                <span>+91 80 1234 5678</span>
+                <span> +91 7349 5858 58</span>
               </li>
               <li className="flex items-center gap-2 text-sm opacity-90">
                 <Mail className="h-5 w-5 shrink-0" />
-                <span>info@kedorg.in</span>
+                <span>mail@klmta.in</span>
               </li>
             </ul>
           </div>

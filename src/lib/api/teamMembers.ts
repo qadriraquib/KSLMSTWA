@@ -1,5 +1,7 @@
-const API = "http://127.0.0.1:8000/team-members";
+// const API = "http://127.0.0.1:8000/team-members";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API = `${API_BASE}/team-members`;
 export const fetchPublicTeamMembers = async () => {
   const res = await fetch(API);
   return res.json();

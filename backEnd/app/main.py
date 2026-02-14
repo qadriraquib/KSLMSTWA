@@ -17,7 +17,7 @@ from app.routers import (
     gallery
 )
 from app.routers import membership
-
+from app.routers.resources import router as resource_router
 
 
 # ✅ 1. Create app FIRST
@@ -45,5 +45,6 @@ app.include_router(circular_router.router)
 app.include_router(testimonial_router.router)
 app.include_router(gallery.router, prefix="/api")
 app.include_router(membership.router, prefix="/api")
+app.include_router(resource_router)
 # ✅ 4. Serve uploaded files
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")

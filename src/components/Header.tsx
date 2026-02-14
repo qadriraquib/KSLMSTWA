@@ -104,9 +104,9 @@ export const Header = () => {
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+  // const changeLanguage = (lng: string) => {
+  //   i18n.changeLanguage(lng);
+  // };
 
   const getDistrictName = (district: typeof districts[0]) => {
     switch (i18n.language) {
@@ -138,11 +138,77 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
       <div className="container mx-auto px-4">
         {/* Top bar with org name */}
-        <div className="py-2 text-center border-b">
-          <h1 className="text-lg font-semibold text-primary">
-            Karnataka State Linguistic Minorities
-          </h1>
-        </div>
+<div className="bg-white shadow-md">
+
+  {/* Top Blue Line */}
+  <div className="h-[4px] bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700"></div>
+
+  <div className="container mx-auto px-4">
+
+    <div className="relative py-6 border-b border-blue-500/30">
+
+      {/* Kannada - Center Authority */}
+      <div className="text-center">
+        <h2
+          className="
+            font-bold
+            text-xl md:text-2xl
+            text-blue-800
+            tracking-[0.8px]
+            drop-shadow-[0_1px_1px_rgba(0,0,0,0.1)]
+          "
+        >
+          ಕರ್ನಾಟಕ ರಾಜ್ಯ ಭಾಷಾ ಅಲ್ಪಸಂಖ್ಯಾತರ ಸಂಘ
+        </h2>
+
+        {/* Blue Underline */}
+        <div className="w-32 h-[2px] bg-blue-600 mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      {/* English - Right */}
+      <div
+        className="
+          hidden md:block
+          absolute right-0 top-1/2 -translate-y-1/2
+          w-1/3 text-left pl-6
+          text-green-800
+          font-semibold
+          text-sm md:text-base
+          tracking-wide
+        "
+      >
+        Karnataka State Linguistic Minorities Association
+      </div>
+
+      {/* Urdu - Left */}
+      <div
+        className="
+          hidden md:block
+          absolute left-0 top-1/2 -translate-y-1/2
+          w-1/3 text-right pr-6
+          text-orange-800
+          font-urdu
+          text-base md:text-lg
+          leading-[2]
+        "
+        dir="rtl"
+      >
+ کرناٹک ریاستی لسانی اقلیتی تنظیم 
+      </div>
+
+    </div>
+
+  </div>
+
+  {/* Bottom Blue Line */}
+  <div className="h-[4px] bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700"></div>
+
+</div>
+
+
+
+
+
 
         {/* Main header */}
         <div className="flex h-16 items-center justify-between">
@@ -154,7 +220,7 @@ export const Header = () => {
   <img
     src={logo}
     alt="Logo"
-    className="h-24 w-24 object-contain"
+    className="h-28 w-28 object-contain"
   />
 </Link>
 <Link
@@ -164,7 +230,7 @@ export const Header = () => {
   <img
     src={logo}
     alt="Logo"
-    className="h-12 w-12 object-contain"
+    className="h-14 w-14 object-contain"
   />
 </Link>
 
@@ -198,11 +264,11 @@ export const Header = () => {
                   </Link>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                   <Link to="/vision" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
                     {t('vision')}
                   </Link>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
 
               <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -320,7 +386,7 @@ export const Header = () => {
             </NavigationMenu>
 
             {/* Language Switcher */}
-            <DropdownMenu>
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="gap-2">
                   <Globe className="h-4 w-4" />
@@ -337,13 +403,13 @@ export const Header = () => {
                 {/* <DropdownMenuItem onClick={() => changeLanguage('ur')}>
                   اردو
                 </DropdownMenuItem> */}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              {/* </DropdownMenuContent>
+            </DropdownMenu> */} 
           </nav>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-2">
-            <DropdownMenu>
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">
                   <Globe className="h-4 w-4" />
@@ -353,8 +419,8 @@ export const Header = () => {
                 <DropdownMenuItem onClick={() => changeLanguage('en')}>EN</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => changeLanguage('kn')}>ಕನ್ನಡ</DropdownMenuItem>
                 {/* <DropdownMenuItem onClick={() => changeLanguage('ur')}>اردو</DropdownMenuItem> */}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              {/* </DropdownMenuContent>
+            </DropdownMenu> */} 
 
             <Button
               variant="ghost"

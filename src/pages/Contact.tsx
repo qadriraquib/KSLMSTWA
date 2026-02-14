@@ -45,8 +45,8 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  #123, Education Complex<br />
-                  MG Road, Bangalore<br />
+                  #23, 1st Main Road, ST bed Road, 4th Block,<br />
+                  Koramangala, Bengaluru,<br />
                   Karnataka - 560001<br />
                   India
                 </p>
@@ -62,8 +62,8 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Main: +91 80 1234 5678<br />
-                  Support: +91 80 8765 4321
+                  Main: +91 7349 5858 58<br />
+                  Support: +91 7349 5858 58
                 </p>
               </CardContent>
             </Card>
@@ -77,8 +77,8 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  General: info@kedorg.in<br />
-                  Support: support@kedorg.in
+                  General: mail@klmta.in<br />
+                  Support: mail@klmta.in
                 </p>
               </CardContent>
             </Card>

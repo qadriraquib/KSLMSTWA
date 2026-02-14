@@ -1,4 +1,6 @@
 import { TeacherResource } from "./types";
+import { buildFileUrl } from "@/utils/url";
+
 
 export const mapTeacherResource = (r: any): TeacherResource => ({
   id: r.id,
@@ -6,9 +8,8 @@ export const mapTeacherResource = (r: any): TeacherResource => ({
   classId: String(r.class_id),
   subject: r.subject,
   title: r.title,
-  type: r.resource_type,               // pdf | video
-  filePath: r.file_path
-    ? `http://127.0.0.1:8000/${r.file_path}`
-    : undefined,
+  type: r.resource_type,
+  filePath: buildFileUrl(r.file_path),
   youtubeUrl: r.youtube_url || undefined,
 });
+

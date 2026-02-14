@@ -29,7 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+// const API = `${API_BASE}/resources/`;
 export default function MembershipManager() {
   const [data, setData] = useState<any[]>([]);
   const [district, setDistrict] = useState("");
@@ -261,7 +262,7 @@ const saveEdit = async () => {
             variant="outline"
             onClick={() =>
               window.open(
-                `http://localhost:8000/api/memberships/receipt/${m.id}`,
+                `${API_BASE}/api/memberships/receipt/${m.id}`,
                 "_blank"
               )
             }

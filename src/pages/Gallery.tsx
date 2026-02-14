@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ZoomIn } from "lucide-react";
 import ImageLightbox from "@/components/ImageLightbox";
 import { fetchGallery } from "@/lib/api/galleryApi";
+import { buildFileUrl } from "@/utils/url";
 
 interface GalleryImage {
   id: string;
@@ -25,7 +26,10 @@ const Gallery = () => {
       .catch(() => setGalleryImages([]));
   }, []);
 
-  const images = galleryImages.map((img) => img.url);
+  const images = galleryImages.map((img) =>
+  buildFileUrl(img.url) || ""
+);
+
 
   const handlePrev = () => {
     setPhotoIndex((photoIndex + images.length - 1) % images.length);
@@ -65,11 +69,12 @@ const Gallery = () => {
                 setIsOpen(true);
               }}
             >
-              <img
-                src={image.url}
-                alt={image.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-              />
+             <img
+  src={buildFileUrl(image.url)}
+  alt={image.title}
+  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+/>
+
 
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <ZoomIn className="h-8 w-8 text-white" />

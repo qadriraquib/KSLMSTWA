@@ -1,7 +1,10 @@
 import { mapTeacherResource } from "./teacherResource.mapper";
 import { TeacherResource } from "./types";
 
-const API = "http://127.0.0.1:8000/teacher-resources";
+// const API = "http://127.0.0.1:8000/teacher-resources";
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API = `${API_BASE}/teacher-resources`;
+
 
 export const fetchResources = async (): Promise<TeacherResource[]> => {
   const res = await fetch(API);

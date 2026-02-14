@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { fetchResources } from '@/lib/api/teacherResources';
-
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 export interface TeacherResource {
   id: string;
   category: string;
@@ -292,7 +292,7 @@ const getYoutubeEmbedUrl = (url?: string) => {
                   variant="outline"
                   onClick={() =>
                     window.open(
-                      `http://127.0.0.1:8000/${resource.filePath}`,
+                      `${API_BASE}/${resource.filePath}`,
                       "_blank"
                     )
                   }

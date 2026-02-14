@@ -1,5 +1,9 @@
-const API_BASE = "http://localhost:8000/api"; // change port if needed
+// const API_BASE = "http://localhost:8000/api"; 
+const API =
+  import.meta.env.VITE_API_BASE_URL;
 
+  
+const API_BASE = `${API}/api`;
 export async function fetchGallery() {
   const res = await fetch(`${API_BASE}/gallery`);
   if (!res.ok) {

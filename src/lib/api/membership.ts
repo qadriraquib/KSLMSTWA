@@ -1,7 +1,10 @@
-const API = "http://localhost:8000/api/memberships/";
+// const API = "http://localhost:8000/api/memberships/";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API = `${API_BASE}/api/memberships/`;
 
 export const createMembership = async (data: any) => {
-  const res = await fetch("http://localhost:8000/api/memberships/", {
+  const res = await fetch(API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,27 +35,27 @@ export const deleteMembership = async (id: string) => {
 
 export const downloadReceipt = (id: string) => {
   window.open(
-    `http://localhost:8000/api/memberships/receipt/${id}`,
+    `${API}receipt/${id}`,
     "_blank"
   );
 };
 
 export const exportExcel = (district?: string, taluka?: string) => {
   window.open(
-    `http://localhost:8000/api/memberships/export/excel?district=${district ?? ""}&taluka=${taluka ?? ""}`,
+    `${API}export/excel?district=${district ?? ""}&taluka=${taluka ?? ""}`,
     "_blank"
   );
 };
 
 export const exportPdf = (district?: string, taluka?: string) => {
   window.open(
-    `http://localhost:8000/api/memberships/export/pdf?district=${district ?? ""}&taluka=${taluka ?? ""}`,
+    `${API}export/pdf?district=${district ?? ""}&taluka=${taluka ?? ""}`,
     "_blank"
   );
 };
 
 export const updateMembership = async (id: string, data: any) => {
-  await fetch(`http://localhost:8000/api/memberships/${id}`, {
+  await fetch(`${API}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, Plus, Pen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export function BlogManager() {
   const [testimonials, setTestimonials] = useState<any[]>([]);
@@ -19,7 +20,7 @@ const [editId, setEditId] = useState<string | null>(null);
 
   /* ---------------- LOAD TESTIMONIALS ---------------- */
   const loadTestimonials = () => {
-    fetch("http://127.0.0.1:8000/testimonials")
+    fetch(`${API_BASE}/testimonials`)
       .then(res => res.json())
       .then(setTestimonials);
   };
@@ -33,8 +34,8 @@ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
   const url = editId
-    ? `http://127.0.0.1:8000/testimonials/${editId}`
-    : "http://127.0.0.1:8000/testimonials";
+    ? `${API_BASE}/testimonials/${editId}`
+    : `${API_BASE}/testimonials`;
 
   const method = editId ? "PUT" : "POST";
 
@@ -72,7 +73,7 @@ const handleEdit = (t: any) => {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this testimonial?")) return;
 
-    await fetch(`http://127.0.0.1:8000/testimonials/${id}`, {
+    await fetch(`${API_BASE}/testimonials/${id}`, {
       method: "DELETE",
     });
 

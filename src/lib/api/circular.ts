@@ -1,5 +1,6 @@
-const API = "http://127.0.0.1:8000/circulars";
-
+// const API = "http://127.0.0.1:8000/circulars";
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const API = `${API_BASE}/circulars`;
 export const fetchCirculars = async () => {
   const res = await fetch(API);
   return res.json();

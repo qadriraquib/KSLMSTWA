@@ -35,7 +35,7 @@ export function TeamMembersManager() {
   const { toast } = useToast();
 
   /* ================= STATE ================= */
-
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [page, setPage] = useState(1);
 
@@ -396,7 +396,7 @@ const filteredMembers = members.filter((m) => {
       <td className="p-2">
         <div className="flex justify-center">
           <img
-            src={`http://127.0.0.1:8000/${member.photo}`}
+            src={`${API_BASE}/${member.photo}`}
             className="h-10 w-10 rounded-full object-cover"
           />
         </div>

@@ -20,6 +20,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 // import TableDemo from "./pages/TableDemo";
 import MembershipForm from "./pages/MembershipForm";
 import "./i18n/config";
+import Circulars from "./pages/Circulars";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +36,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
-              <Route path="/vision" element={<Vision />} />
+              {/* <Route path="/vision" element={<Vision />} /> */}
               <Route path="/resources" element={<Resources />} />
               <Route path="/teacher-resources" element={<TeacherResources />} />
               <Route path="/gallery" element={<Gallery />} />
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="/membershipForm" element={<MembershipForm />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/circulars" element={<Circulars />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

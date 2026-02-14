@@ -2,89 +2,119 @@ import { useEffect, useState } from "react";
 import { FileText, Download } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export const VerticalMarquee = () => {
   const { t } = useTranslation();
   const [circulars, setCirculars] = useState<any[]>([]);
   const [isPaused, setIsPaused] = useState(false);
+const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/circulars")
-      .then(res => res.json())
-      .then(data => setCirculars(data));
+    fetch(`${API_BASE}/circulars`)
+      .then((res) => res.json())
+      .then((data) => setCirculars(data));
   }, []);
 
-  const handleDownload = (url: string, title: string, e: React.MouseEvent) => {
+  const handleDownload = (
+    url: string,
+    title: string,
+    e: React.MouseEvent
+  ) => {
     e.preventDefault();
     e.stopPropagation();
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${title}.pdf`;
-    link.target = "_blank";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    window.open(url, "_blank");
   };
 
-  return (
-    <div className="bg-card border rounded-lg p-6 h-[400px] overflow-hidden">
-      {/* ✅ SAME HEADING */}
-      <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+  const isNewCircular = (dateString: string) => {
+    const circularDate = new Date(dateString);
+    const today = new Date();
+    const diffTime = today.getTime() - circularDate.getTime();
+    const diffDays = diffTime / (1000 * 3600 * 24);
+    return diffDays <= 3;
+  };
+
+return (
+  <div className="bg-card border rounded-2xl p-6 h-[400px] overflow-hidden shadow-md flex flex-col">
+
+    {/* Header */}
+    <div className="flex items-center gap-3 mb-4 border-b pb-3">
+      <div className="p-2 bg-primary/10 rounded-lg">
         <FileText className="h-5 w-5 text-primary" />
+      </div>
+      <h3 className="text-lg font-bold text-primary">
         {t("circulars.title")}
       </h3>
+    </div>
 
-      {/* ✅ MARQUEE CONTAINER */}
+    {/* Vertical Marquee */}
+    <div
+      className="relative flex-1 overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div
-        className="relative h-[320px] overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        className={`space-y-4 ${
+          isPaused ? "" : "animate-marquee-up"
+        }`}
+        style={{
+          animationPlayState: isPaused ? "paused" : "running",
+        }}
       >
-        <div
-          className={`space-y-3 ${
-            isPaused ? "" : "animate-marquee-up"
-          }`}
-          style={{
-            animationPlayState: isPaused ? "paused" : "running",
-          }}
-        >
-          {/* ✅ duplicate array for seamless loop */}
-          {[...circulars, ...circulars].map((c, index) => (
-            <div
-              key={`${c.id}-${index}`}
-              className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors group"
+        {[...circulars, ...circulars].map((c, index) => (
+          <div
+            key={`${c.id}-${index}`}
+            className="flex items-center gap-3 text-sm py-2 border-b border-border/40 last:border-none"
+          >
+            {/* PDF Tag */}
+            <span className="px-2 py-0.5 bg-gray-800 text-white rounded text-[10px] font-medium">
+              PDF
+            </span>
+
+            {/* Title */}
+            <span className="flex-1 truncate font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer">
+              {c.title}
+            </span>
+
+            {/* NEW Badge */}
+            {isNewCircular(c.date) && (
+              <span className="px-2 py-0.5 bg-red-500 text-white rounded text-[10px] font-semibold">
+                NEW
+              </span>
+            )}
+
+            {/* Download */}
+            <button
+              onClick={(e) =>
+                handleDownload(
+                  `${API_BASE}/${c.file_path}`,
+                  c.title,
+                  e
+                )
+              }
+              className="text-primary hover:underline text-xs"
             >
-              <FileText className="h-5 w-5 text-primary shrink-0" />
-
-              <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors">
-                  {c.title}
-                </h4>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {c.date}
-                </p>
-              </div>
-
-              <Button
-                size="sm"
-                variant="ghost"
-                className="shrink-0 h-8 w-8 p-0 hover:bg-primary hover:text-primary-foreground"
-                onClick={(e) =>
-                  handleDownload(
-                    `http://127.0.0.1:8000/${c.file_path}`,
-                    c.title,
-                    e
-                  )
-                }
-                title="Download PDF"
-              >
-                <Download className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
-        </div>
+              <Download className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
-  );
+
+    {/* View All Button */}
+    <div className="pt-3 border-t mt-3">
+    <Button
+  variant="ghost"
+  className="w-full text-primary hover:bg-primary hover:text-white transition-all duration-300"
+  onClick={() => navigate("/circulars")}
+>
+  View All Circulars
+</Button>
+
+    </div>
+  </div>
+);
+
 };

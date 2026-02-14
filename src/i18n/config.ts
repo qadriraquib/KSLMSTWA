@@ -26,7 +26,7 @@ const resources = {
       
       // Homepage
       hero: {
-        title: 'Empowering Education Across Karnataka',
+        title: 'TOGETHER WE CAN AND TOGETHER WE WILL',
         subtitle: 'Building a brighter future through quality education and community engagement',
       },
       testimonials: {
@@ -38,9 +38,9 @@ const resources = {
       
       // Resources
       resourcesPage: {
-        title: 'Educational Resources',
-        subtitle: 'Access quality learning materials and resources',
-        subjects: 'Subjects',
+        title: 'Resources Team',
+        subtitle: 'The team behind curated academic and classroom materials.',
+        // subjects: 'Subjects',
       },
       
       // Gallery

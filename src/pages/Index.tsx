@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { VerticalMarquee } from "@/components/VerticalMarquee";
+import HomeImageMarquee from "@/components/HomeImageMarquee";
 import {
   Card,
   CardContent,
@@ -10,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Quote } from "lucide-react";
-
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 const Index = () => {
   const { t } = useTranslation();
 
@@ -18,7 +19,7 @@ const Index = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/testimonials")
+    fetch(`${API_BASE}/testimonials`)
       .then((res) => res.json())
       .then(setTestimonials)
       .catch(console.error);
@@ -43,9 +44,25 @@ const Index = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {/* Circulars Marquee */}
-          <div className="lg:col-span-1">
-            <VerticalMarquee />
-          </div>
+          <div className="lg:col-span-1 space-y-6">
+  <VerticalMarquee />
+
+  {/* YouTube Video Card */}
+  <div className="bg-card border rounded-lg p-6 shadow-sm">
+    <h3 className="text-xl font-semibold mb-4">
+      Organization Video
+    </h3>
+
+    <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md">
+      <iframe
+        className="absolute inset-0 w-full h-full"
+        src="https://www.youtube.com/embed/ZArbSUnaIOI?si=XFiuwGO3YGGvBsMZ"
+        title="YouTube video"
+        allowFullScreen
+      ></iframe>
+    </div>
+  </div>
+</div>
 
           {/* Testimonials */}
           <div className="lg:col-span-2">
@@ -73,6 +90,9 @@ const Index = () => {
             </div>
           </div>
         </div>
+<section className="mb-20">
+  <HomeImageMarquee />
+</section>
 
         {/* Quick Stats */}
         <section className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
