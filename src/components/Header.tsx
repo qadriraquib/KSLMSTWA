@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, ChevronDown, ChevronRight, Globe } from 'lucide-react';
 import { Button } from './ui/button';
@@ -138,72 +138,39 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
       <div className="container mx-auto px-4">
         {/* Top bar with org name */}
-<div className="bg-white shadow-md">
-
-  {/* Top Blue Line */}
-  <div className="h-[4px] bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700"></div>
+<div className="bg-white shadow-sm">
+  <div className="h-[3px] bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700"></div>
 
   <div className="container mx-auto px-4">
-
-    <div className="relative py-6 border-b border-blue-500/30">
-
-      {/* Kannada - Center Authority */}
-      <div className="text-center">
-        <h2
-          className="
-            font-bold
-            text-xl md:text-2xl
-            text-blue-800
-            tracking-[0.8px]
-            drop-shadow-[0_1px_1px_rgba(0,0,0,0.1)]
-          "
-        >
-          ಕರ್ನಾಟಕ ರಾಜ್ಯ ಭಾಷಾ ಅಲ್ಪಸಂಖ್ಯಾತರ ಸಂಘ
-        </h2>
-
-        {/* Blue Underline */}
-        <div className="w-32 h-[2px] bg-blue-600 mx-auto mt-3 rounded-full"></div>
-      </div>
-
-      {/* English - Right */}
-      <div
+    <div className="py-3 md:py-4 text-center border-b border-blue-500/20">
+      
+      <h1
         className="
-          hidden md:block
-          absolute right-0 top-1/2 -translate-y-1/2
-          w-1/3 text-left pl-6
-          text-green-800
+          font-[Cinzel]
+          text-[1.05rem]
+          sm:text-[1.15rem]
+          md:text-[1.2rem]
+          lg:text-[1.25rem]
           font-semibold
-          text-sm md:text-base
-          tracking-wide
+          uppercase
+          tracking-[1.5px]
+          text-blue-900
+          leading-tight
         "
       >
-        Karnataka State Linguistic Minorities Association
-      </div>
+        Karnataka State Linguistic Minorities School Teachers Welfare Association
+      </h1>
 
-      {/* Urdu - Left */}
-      <div
-        className="
-          hidden md:block
-          absolute left-0 top-1/2 -translate-y-1/2
-          w-1/3 text-right pr-6
-          text-orange-800
-          font-urdu
-          text-base md:text-lg
-          leading-[2]
-        "
-        dir="rtl"
-      >
- کرناٹک ریاستی لسانی اقلیتی تنظیم 
-      </div>
+      <p className="text-[11px] md:text-[12px] text-gray-600 italic mt-1">
+        Together We Can And Together We Will
+      </p>
 
     </div>
-
   </div>
 
-  {/* Bottom Blue Line */}
-  <div className="h-[4px] bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700"></div>
-
+  <div className="h-[3px] bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700"></div>
 </div>
+
 
 
 
@@ -253,15 +220,34 @@ export const Header = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link to="/" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
-                    {t('home')}
-                  </Link>
+                  <NavLink
+  to="/"
+  className={({ isActive }) =>
+    `px-4 py-2 text-sm font-medium transition-colors ${
+      isActive
+        ? "text-blue-900 border-b-2 border-blue-900"
+        : "hover:text-primary"
+    }`
+  }
+>
+  {t('home')}
+                  </NavLink>
+                  
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link to="/about" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
-                    {t('about')}
-                  </Link>
+                  <NavLink
+  to="/about"
+  className={({ isActive }) =>
+    `px-4 py-2 text-sm font-medium transition-colors ${
+      isActive
+        ? "text-blue-900 border-b-2 border-blue-900"
+        : "hover:text-primary"
+    }`
+  }
+>
+  {t('about')}
+                 </NavLink>
                 </NavigationMenuItem>
 
                 {/* <NavigationMenuItem>
@@ -355,9 +341,18 @@ export const Header = () => {
                 </DropdownMenu>
 
                 <NavigationMenuItem>
-                  <Link to="/gallery" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
-                    {t('gallery')}
-                  </Link>
+                  <NavLink
+  to="/gallery"
+  className={({ isActive }) =>
+    `px-4 py-2 text-sm font-medium transition-colors ${
+      isActive
+        ? "text-blue-900 border-b-2 border-blue-900"
+        : "hover:text-primary"
+    }`
+  }
+>
+ {t('gallery')}
+                  </NavLink>
                 </NavigationMenuItem>
 
                 {/* <NavigationMenuItem>
@@ -367,9 +362,18 @@ export const Header = () => {
                 </NavigationMenuItem> */}
 
                 <NavigationMenuItem>
-                  <Link to="/contact" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
-                    {t('contact')}
-                  </Link>
+                <NavLink
+  to="/contact"
+  className={({ isActive }) =>
+    `px-4 py-2 text-sm font-medium transition-colors ${
+      isActive
+        ? "text-blue-900 border-b-2 border-blue-900"
+        : "hover:text-primary"
+    }`
+  }
+>
+   {t('contact')}
+                  </NavLink>
                 </NavigationMenuItem>
 
                 {/* <NavigationMenuItem>
@@ -378,9 +382,18 @@ export const Header = () => {
                   </Link>
                 </NavigationMenuItem> */}
                  <NavigationMenuItem>
-                  <Link to="/membershipForm" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
-                    Membership Form
-                  </Link>
+                  <NavLink
+  to="/membershipForm"
+  className={({ isActive }) =>
+    `px-4 py-2 text-sm font-medium transition-colors ${
+      isActive
+        ? "text-blue-900 border-b-2 border-blue-900"
+        : "hover:text-primary"
+    }`
+  }
+>
+   Membership Form
+                  </NavLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
