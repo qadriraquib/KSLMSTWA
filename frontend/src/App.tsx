@@ -19,8 +19,10 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 // import TableDemo from "./pages/TableDemo";
 import MembershipForm from "./pages/MembershipForm";
+import LoginPage from "./pages/LoginPage";
 import "./i18n/config";
 import Circulars from "./pages/Circulars";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -45,9 +47,19 @@ const App = () => (
               <Route path="/district/:districtId" element={<District />} />
               {/* <Route path="/table-demo" element={<TableDemo />} /> */}
               <Route path="/membershipForm" element={<MembershipForm />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+             {/* <Route path="/admin/login" element={<AdminLogin />} />*/}
+              {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
               <Route path="/circulars" element={<Circulars />} />
+               <Route path="/login" element={<LoginPage />} />
+                <Route
+              path="/admin/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

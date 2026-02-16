@@ -18,6 +18,7 @@ from app.routers import (
 )
 from app.routers import membership
 from app.routers.resources import router as resource_router
+from app.routers import auth
 
 
 # ✅ 1. Create app FIRST
@@ -39,6 +40,7 @@ app.include_router(teacher_resource_router.router)
 # Base.metadata.create_all(bind=engine)
 
 # ✅ 3. Register routers
+app.include_router(auth.router)
 app.include_router(team_member_router.router)
 app.include_router(teacher_resource_router.router)
 app.include_router(circular_router.router)
@@ -48,3 +50,10 @@ app.include_router(membership.router, prefix="/api")
 app.include_router(resource_router)
 # ✅ 4. Serve uploaded files
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to KSML Project", "status": "running"}
+if __name__ == "__main__":
+    import uvicorn 
+    uvicorn.run(app, host="0.0.0.0", port=8001)
