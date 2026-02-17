@@ -1,0 +1,97 @@
+CREATE TABLE circulars (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR NOT NULL,
+    file_path VARCHAR NOT NULL,
+    date VARCHAR NOT NULL
+);
+
+
+
+CREATE TABLE membertable (
+  id UUID PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  designation VARCHAR NOT NULL,
+  photo VARCHAR NOT NULL,
+  district VARCHAR NOT NULL,
+  taluka VARCHAR
+);
+
+CREATE TABLE gallery_images (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    file_name TEXT NOT NULL,
+    file_path TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE testimonials (
+    id UUID PRIMARY KEY,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE teacher_resources (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+
+    category VARCHAR(100) NOT NULL,
+    class_id VARCHAR(50) NOT NULL,
+    subject VARCHAR(100) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+
+    resource_type VARCHAR(20) NOT NULL CHECK (resource_type IN ('pdf', 'video')),
+
+    file_path TEXT,
+    youtube_url TEXT,
+
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE teacher_memberships (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+
+    -- Personal Details
+    full_name VARCHAR(200) NOT NULL,
+    father_or_husband_name VARCHAR(200) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+
+    -- Professional Details
+    designation VARCHAR(150) NOT NULL,
+    subject_taught VARCHAR(150) NOT NULL,
+    institution_name VARCHAR(200) NOT NULL,
+    management VARCHAR(20) NOT NULL CHECK (management IN ('Govt', 'Aided', 'Private')),
+    years_of_experience INTEGER NOT NULL,
+medium VARCHAR(50),
+    -- Location
+    district VARCHAR(100) NOT NULL,
+    taluka VARCHAR(100) NOT NULL,
+
+    -- Contact
+    mobile_no VARCHAR(15) NOT NULL,
+    whatsapp_no VARCHAR(15),
+    email VARCHAR(150),
+    residential_address TEXT NOT NULL,
+membership_no VARCHAR(20) UNIQUE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE resources (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    designation VARCHAR(150) NOT NULL,
+    school_name VARCHAR(200) NOT NULL,
+    school_address VARCHAR(300) NOT NULL,
+    subject VARCHAR(150),
+    description TEXT,
+    photo VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
