@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import Index from "./pages/Index";
@@ -15,7 +15,7 @@ import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import District from "./pages/District";
 import NotFound from "./pages/NotFound";
-import AdminLogin from "./pages/AdminLogin";
+// import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 // import TableDemo from "./pages/TableDemo";
 import MembershipForm from "./pages/MembershipForm";
@@ -47,10 +47,11 @@ const App = () => (
               <Route path="/district/:districtId" element={<District />} />
               {/* <Route path="/table-demo" element={<TableDemo />} /> */}
               <Route path="/membershipForm" element={<MembershipForm />} />
-             {/* <Route path="/admin/login" element={<AdminLogin />} />*/}
+             {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
               {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
               <Route path="/circulars" element={<Circulars />} />
                <Route path="/login" element={<LoginPage />} />
+               {/* <Route path="/admin/login" element={<Navigate to="/admin/dashboard" replace />} /> */}
                 <Route
               path="/admin/dashboard"
                 element={
@@ -59,7 +60,7 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

@@ -11,12 +11,15 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
       const response = await loginAdmin(username, password);
+       console.log('Already logged in, redirecting to dashboard');
+      console.log('Login form submitted with:', { username, password });
       if (response && response.access_token) {
         // Store token in localStorage
         localStorage.setItem('admin_token', response.access_token);

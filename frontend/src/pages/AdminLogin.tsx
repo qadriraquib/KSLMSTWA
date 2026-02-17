@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { login } from "@/lib/adminAuth";
+// import { login } from "@/lib/adminAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Lock } from "lucide-react";
 
@@ -14,19 +14,19 @@ export default function AdminLogin() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (login(password)) {
-      toast({
-        title: "Login Successful",
-        description: "Welcome to the admin dashboard",
-      });
-      navigate("/admin/dashboard");
-    } else {
-      toast({
-        title: "Login Failed",
-        description: "Incorrect password",
-        variant: "destructive",
-      });
-    }
+    // if (login(password)) {
+    //   toast({
+    //     title: "Login Successful",
+    //     description: "Welcome to the admin dashboard",
+    //   });
+    //   navigate("/admin/dashboard");
+    // } else {
+    //   toast({
+    //     title: "Login Failed",
+    //     description: "Incorrect password",
+    //     variant: "destructive",
+    //   });
+    // }
   };
 
   return (

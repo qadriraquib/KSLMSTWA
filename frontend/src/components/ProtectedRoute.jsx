@@ -4,7 +4,7 @@ import { isAdminLoggedIn } from '../data/api-auth';
 
 const ProtectedRoute = ({ children }) => {
   const isLoggedIn = isAdminLoggedIn();
-
+console.log('ProtectedRoute - Checking auth:', isLoggedIn);
   if (!isLoggedIn) {
     // Clear any stale data and redirect to login
     localStorage.removeItem('admin_token');

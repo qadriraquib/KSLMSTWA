@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { isAuthenticated, logout } from "@/lib/adminAuth";
+// import { isAuthenticated, logout } from "@/lib/adminAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LogOut } from "lucide-react";
@@ -12,19 +12,19 @@ import { BlogManager } from "@/components/admin/BlogManager";
 import { TeacherResourcesManager } from "@/components/admin/TeacherResourcesManager";
 import MembershipManager from "@/components/admin/MembershipManager";
 import AdminResources from "@/components/admin/AdminResources";
-
+import {getAdminUser, logoutAdmin } from '@/data/api-auth'
 export default function AdminDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate("/admin/login");
+    if (!getAdminUser()) {
+      navigate("/login");
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    logout();
-    navigate("/admin/login");
+    logoutAdmin();
+    navigate("/login");
   };
 
   return (
