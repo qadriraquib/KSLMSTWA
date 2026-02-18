@@ -286,7 +286,7 @@ def export_memberships_pdf(
 
         row("Designation", m.designation)
         row("Subject Taught", m.subject_taught)
-        row("Institution", m.institution_name)
+        row("School", m.institution_name)
         row("Management", m.management)
         row("Medium", m.medium)
         row("Years of Experience", f"{m.years_of_experience} Years")
