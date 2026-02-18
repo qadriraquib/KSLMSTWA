@@ -27,6 +27,7 @@ export const districts = [
   { id: 'bagalkot', name: 'Bagalkot', nameKn: 'ಬಾಗಲಕೋಟೆ' },
   { id: 'ballari', name: 'Ballari', nameKn: 'ಬಳ್ಳಾರಿ' },
   { id: 'belagavi', name: 'Belagavi', nameKn: 'ಬೆಳಗಾವಿ' },
+  { id: 'chikodi', name: 'Chikodi', nameKn: 'ಬೆಳಗಾವಿ' },
   { id: 'bengaluru-rural', name: 'Bengaluru Rural', nameKn: 'ಬೆಂಗಳೂರು ಗ್ರಾಮಾಂತರ' },
   { id: 'bengaluru-urban', name: 'Bengaluru Urban', nameKn: 'ಬೆಂಗಳೂರು ನಗರ' },
   { id: 'bidar', name: 'Bidar', nameKn: 'ಬೀದರ್' },

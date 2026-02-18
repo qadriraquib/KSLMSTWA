@@ -1,11 +1,14 @@
 // Taluka data for each district
 export const DISTRICT_TALUKAS: Record<string, string[]> = {
   "Belagavi": [
-    "Athani", "Bailhongal", "Belagavi", "Chikkodi", "Gokak",
-    "Hukkeri", "Khanapur", "Ramdurg", "Raybag", "Savadatti"
+    "Bailhongal", "Belagavi","Khanapur", "Ramdurg","Savadatti","Kittur"
+  ],
+  "Chikodi": [
+    "Athani","Chikkodi", "Gokak",
+    "Hukkeri","Raybag","Kagawad"
   ],
   "Bagalkot": [
-    "Badami", "Bagalkot", "Bilgi", "Hungund", "Jamkhandi", "Mudhol"
+    "Badami", "Bagalkot", "Bilgi", "Hungund", "Jamkhandi", "Mudhol","Terdal"
   ],
   "Ballari": [
     "Ballari", "Hadagali", "Hospet", "Kudligi", "Sandur", "Siruguppa"
