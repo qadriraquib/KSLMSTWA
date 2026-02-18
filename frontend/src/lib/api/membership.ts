@@ -30,7 +30,7 @@ export const getMemberships = async (district?: string, taluka?: string) => {
 };
 
 export const deleteMembership = async (id: string) => {
-  await fetch(`${API}${id}`, { method: "DELETE" });
+  await fetch(`${API}/${id}`, { method: "DELETE" });
 };
 
 export const downloadReceipt = (id: string) => {
@@ -42,14 +42,14 @@ export const downloadReceipt = (id: string) => {
 
 export const exportExcel = (district?: string, taluka?: string) => {
   window.open(
-    `${API}export/excel?district=${district ?? ""}&taluka=${taluka ?? ""}`,
+    `${API}/export/excel?district=${district ?? ""}&taluka=${taluka ?? ""}`,
     "_blank"
   );
 };
 
 export const exportPdf = (district?: string, taluka?: string) => {
   window.open(
-    `${API}export/pdf?district=${district ?? ""}&taluka=${taluka ?? ""}`,
+    `${API}/export/pdf?district=${district ?? ""}&taluka=${taluka ?? ""}`,
     "_blank"
   );
 };

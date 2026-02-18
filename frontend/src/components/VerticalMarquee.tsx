@@ -18,14 +18,19 @@ const navigate = useNavigate();
       .then((data) => setCirculars(data));
   }, []);
 
-  const handleDownload = (
+  const handleDownload =async (
     url: string,
     title: string,
     e: React.MouseEvent
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    window.open(url, "_blank");
+  const response = await fetch(url, { method: "GET" });
+    const blob = await response.blob();
+    const link = document.createElement("a");
+     link.href = window.URL.createObjectURL(blob); link.download = title || "file.pdf";
+     link.click();
+     window.URL.revokeObjectURL(link.href);
   };
 
   const isNewCircular = (dateString: string) => {
