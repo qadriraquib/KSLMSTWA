@@ -3,7 +3,7 @@ const API =
   import.meta.env.VITE_API_BASE_URL;
 
   
-const API_BASE = `${API}/api`;
+const API_BASE = `${API}`;
 export async function fetchGallery() {
   const res = await fetch(`${API_BASE}/gallery`);
   if (!res.ok) {

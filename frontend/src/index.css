@@ -52,7 +52,7 @@ src: url('/fonts/JameelNoori.woff2') format('woff2');
     --ring: 221 83% 53%;
 
     --radius: 0.5rem;
-    
+
     --education-blue: 221 83% 53%;
     --education-orange: 38 92% 50%;
     --education-green: 142 71% 45%;
@@ -150,4 +150,14 @@ src: url('/fonts/JameelNoori.woff2') format('woff2');
 
 .admin-tab[data-state="active"] {
   @apply text-primary border-b-2 border-primary bg-background;
+}
+@keyframes colorChange {
+  0% { color: hsl(var(--primary)); }
+  33% { color: hsl(var(--accent)); }
+  66% { color: hsl(var(--education-green)); }
+  100% { color: hsl(var(--primary)); }
+}
+
+.animate-color-change {
+  animation: colorChange 4s linear infinite;
 }

@@ -28,7 +28,7 @@ router = APIRouter(
 # ===============================
 from sqlalchemy import func, Integer
 
-@router.post("/")
+@router.post("")
 def create_membership(data: dict, db: Session = Depends(get_db)):
 
     # 🔹 Extract numeric part safely
@@ -63,7 +63,7 @@ def create_membership(data: dict, db: Session = Depends(get_db)):
 # ===============================
 # GET MEMBERSHIPS
 # ===============================
-@router.get("/")
+@router.get("")
 def get_memberships(
     district: str | None = None,
     taluka: str | None = None,

@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from app.core.config import ADMIN_USERNAME, ADMIN_PASSWORD
 
-router = APIRouter(prefix="/api/admin", tags=["auth"])
+router = APIRouter(prefix="/admin", tags=["auth"])
 
 @router.post("/login")
 def admin_login(form_data: OAuth2PasswordRequestForm = Depends()):

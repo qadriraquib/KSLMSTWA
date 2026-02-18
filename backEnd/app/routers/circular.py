@@ -11,7 +11,7 @@ from app.services.circular_file_service import save_pdf
 router = APIRouter(prefix="/circulars", tags=["Circulars"])
 
 
-@router.post("/", response_model=CircularResponse)
+@router.post("", response_model=CircularResponse)
 def create_circular(
     title: str = Form(...),
     date: str = Form(...),
@@ -26,7 +26,7 @@ def create_circular(
     return circular
 
 
-@router.get("/", response_model=list[CircularResponse])
+@router.get("", response_model=list[CircularResponse])
 def list_circulars(db: Session = Depends(get_db)):
     return db.query(Circular).order_by(Circular.date.desc()).all()
 

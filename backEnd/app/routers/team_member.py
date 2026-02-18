@@ -16,7 +16,7 @@ import pandas as pd
 
 router = APIRouter(prefix="/team-members", tags=["Team Members"])
 
-@router.post("/", response_model=TeamMemberResponse)
+@router.post("", response_model=TeamMemberResponse)
 def create(
     name: str = Form(...),
     designation: str = Form(...),
@@ -35,7 +35,7 @@ def create(
         photo=photo_path,
     )
 
-@router.get("/", response_model=List[TeamMemberResponse])
+@router.get("", response_model=List[TeamMemberResponse])
 def list_all(db: Session = Depends(get_db)):
     return get_all_team_members(db)
 
@@ -101,7 +101,7 @@ def bulk_upload(
     db.commit()
     return {"message": "Bulk upload successful"}
 
-@router.get("/", response_model=List[TeamMemberResponse])
+@router.get("", response_model=List[TeamMemberResponse])
 def list_all(
     db: Session = Depends(get_db),
    district: Optional[str] = None,
