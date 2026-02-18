@@ -141,7 +141,7 @@ def membership_receipt(id: UUID, db: Session = Depends(get_db)):
 
     row("Designation", m.designation)
     row("Subject Taught", m.subject_taught)
-    row("Institution", m.institution_name)
+    row("School", m.institution_name)
     row("Management", m.management)
     row("Medium", m.medium)
     row("Years of Experience", f"{m.years_of_experience} Years")
@@ -207,7 +207,7 @@ def export_memberships_excel(
         "Gender": m.gender,
         "Designation": m.designation,
         "Subject Taught": m.subject_taught,
-        "Institution": m.institution_name,
+        "School": m.institution_name,
         "Management": m.management,
         "Medium": m.medium,
         "Years of Experience": m.years_of_experience,
