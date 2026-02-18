@@ -1,7 +1,7 @@
 // const API = "http://localhost:8000/api/memberships/";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
-const API = `${API_BASE}/api/memberships/`;
+const API = `${API_BASE}/memberships`;
 
 export const createMembership = async (data: any) => {
   const res = await fetch(API, {

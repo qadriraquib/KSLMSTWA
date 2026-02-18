@@ -7,6 +7,8 @@ ALLOWED_ORIGINS: List[str] = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:8080",
+    "http://147.93.111.2:9003",
+    "https://kslm.in"
 ]
 
 

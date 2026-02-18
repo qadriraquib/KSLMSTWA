@@ -66,6 +66,17 @@ Together We can And Together We will
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-75">
           <p>© {new Date().getFullYear()} Karnataka State Linguistic Minorities. All rights reserved.</p>
+          <p className="mt-2">
+            Developed by{' '}
+            <a 
+              href="https://maverickignite.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-semibold hover:underline animate-color-change"
+            >
+              Maverick Ignite
+            </a>
+          </p>
         </div>
       </div>
     </footer>

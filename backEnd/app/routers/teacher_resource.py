@@ -43,7 +43,7 @@ def delete_resource(
 # ------------------------
 # GET (LIST / FILTER)
 # ------------------------
-@router.get("/", response_model=List[TeacherResourceResponse])
+@router.get("", response_model=List[TeacherResourceResponse])
 def get_resources(
     category: Optional[str] = None,
     class_id: Optional[str] = None,
@@ -64,7 +64,7 @@ def get_resources(
 # ------------------------
 # CREATE
 # ------------------------
-@router.post("/", response_model=TeacherResourceResponse)
+@router.post("", response_model=TeacherResourceResponse)
 def create_resource(
     category: str = Form(...),
     class_id: str = Form(...),

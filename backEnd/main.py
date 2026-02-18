@@ -27,7 +27,7 @@ app = FastAPI(title="Linguistic Platform API")
 # ✅ 2. Add CORS middleware (MINIMAL FIX)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=["http://localhost:8080","http://147.93.111.2:9003","https://kslm.in"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,8 +45,8 @@ app.include_router(team_member_router.router)
 app.include_router(teacher_resource_router.router)
 app.include_router(circular_router.router)
 app.include_router(testimonial_router.router)
-app.include_router(gallery.router, prefix="/api")
-app.include_router(membership.router, prefix="/api")
+app.include_router(gallery.router)
+app.include_router(membership.router)
 app.include_router(resource_router)
 # ✅ 4. Serve uploaded files
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")

@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 # ✅ CREATE TESTIMONIAL
-@router.post("/")
+@router.post("")
 def create_testimonial(
     data: TestimonialCreate,
     db: Session = Depends(get_db)
@@ -29,7 +29,7 @@ def create_testimonial(
     return testimonial
 
 # ✅ GET ALL TESTIMONIALS (USED BY UI)
-@router.get("/")
+@router.get("")
 def get_testimonials(db: Session = Depends(get_db)):
     return db.query(Testimonial).order_by(Testimonial.created_at.desc()).all()
 

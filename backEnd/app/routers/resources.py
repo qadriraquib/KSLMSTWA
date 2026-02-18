@@ -12,7 +12,7 @@ UPLOAD_DIR = "uploads/resources"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # CREATE
-@router.post("/")
+@router.post("")
 def create_resource(
     name: str = Form(...),
     designation: str = Form(...),
@@ -48,7 +48,7 @@ def create_resource(
     return resource
 
 # READ WITH PAGINATION
-@router.get("/")
+@router.get("")
 def get_resources(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
     skip = (page - 1) * limit
     resources = db.query(Resource).offset(skip).limit(limit).all()
