@@ -62,7 +62,17 @@ const endIndex = startIndex + pageSize;
 
 const paginatedData = data.slice(startIndex, endIndex);
 
+const handleReceiptDownload = (id: string) => {
+  const base = API_BASE.replace(/\/$/, ""); // remove trailing slash if any
 
+  const url = `${base}/memberships/receipt/${id}`;
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `receipt-${id}.pdf`;
+  link.target = "_blank"; // optional (helps in some browsers)
+  link.click();
+};
  const handleDelete = async (id: string) => {
   await deleteMembership(id);
   loadData();
@@ -257,18 +267,13 @@ const saveEdit = async () => {
 
         {/* PDF */}
         <td className="px-3 py-2">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() =>
-              window.open(
-                `${API_BASE}/api/memberships/receipt/${m.id}`,
-                "_blank"
-              )
-            }
-          >
-            PDF
-          </Button>
+    <Button
+  size="sm"
+  variant="outline"
+  onClick={() => handleReceiptDownload(m.id)}
+>
+  PDF
+</Button>
         </td>
 
         {/* Actions */}

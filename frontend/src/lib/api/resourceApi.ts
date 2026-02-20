@@ -16,7 +16,7 @@ export const fetchResourceAuthors = async (
   limit = 50
 ) => {
   const res = await fetch(
-    `${API_BASE_URL}/resources/?page=${page}&limit=${limit}`
+    `${API_BASE_URL}/resources?page=${page}&limit=${limit}`
   );
 
   if (!res.ok) {
