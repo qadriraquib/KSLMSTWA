@@ -23,7 +23,7 @@ import LoginPage from "./pages/LoginPage";
 import "./i18n/config";
 import Circulars from "./pages/Circulars";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import CoreTeamPage from "./pages/CoreTeamPage";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -39,6 +39,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
               {/* <Route path="/vision" element={<Vision />} /> */}
+              <Route path="/core-team" element={<CoreTeamPage />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/teacher-resources" element={<TeacherResources />} />
               <Route path="/gallery" element={<Gallery />} />

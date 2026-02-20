@@ -167,18 +167,16 @@ const handleEdit = (resource: TeacherResource) => {
 
 
 const handleDelete = async (id: string) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this resource?"
-  );
-
-  if (!confirmDelete) return;
+  if (!window.confirm("Delete permanently?")) return;
 
   try {
     await deleteResourceApi(id);
-    setResources(await fetchResources());
+
+    setResources(prev => prev.filter(r => r.id !== id));
+
   } catch (err) {
     console.error(err);
-    alert("Failed to delete resource");
+    alert("Delete failed");
   }
 };
 

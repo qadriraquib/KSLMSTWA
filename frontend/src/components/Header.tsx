@@ -251,11 +251,20 @@ export const Header = () => {
                  </NavLink>
                 </NavigationMenuItem>
 
-                {/* <NavigationMenuItem>
-                  <Link to="/vision" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
-                    {t('vision')}
-                  </Link>
-                </NavigationMenuItem> */}
+                <NavigationMenuItem>
+                                <NavLink
+  to="/core-team"
+  className={({ isActive }) =>
+    `px-4 py-2 text-sm font-medium transition-colors ${
+      isActive
+        ? "text-blue-900 border-b-2 border-blue-900"
+        : "hover:text-primary"
+    }`
+  }
+>
+   Core Team
+                  </NavLink>
+                </NavigationMenuItem>
 
               <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -461,8 +470,8 @@ export const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/vision" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
-                  {t('vision')}
+                <Link to="/core-team" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
+                  {t('core-team')}
                 </Link>
               </li>
               <li>

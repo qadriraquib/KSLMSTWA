@@ -40,16 +40,53 @@ const TeacherResources = () => {
   const pdfResources = filteredResources.filter((r) => r.type === "pdf");
   const videoResources = filteredResources.filter((r) => r.type === "video");
 
-  const handleDownload = (resource: TeacherResource) => {
-    if (!resource.filePath) return;
+  // const handleDownload = (resource: TeacherResource) => {
+  //   if (!resource.filePath) return;
 
-    // If backend already returns full URL
-    if (resource.filePath.startsWith("http")) {
-      window.open(resource.filePath, "_blank");
-    } else {
-      window.open(`${API_BASE}/${resource.filePath}`, "_blank");
-    }
-  };
+
+  //   // If backend already returns full URL
+  //   if (resource.filePath.startsWith("http")) {
+  //     window.open(resource.filePath, "_blank");
+  //   } else {
+  //     window.open(`${API_BASE}/${resource.filePath}`, "_blank");
+  //   }
+  // };
+ const handleDownload = async (
+  path: string,
+  title: string,
+  e: React.MouseEvent
+) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (!path) {
+    alert("File not available");
+    return;
+  }
+
+  // 🔥 Build correct URL
+  const url = path.startsWith("http")
+    ? path
+    : `${API_BASE}${path.startsWith("/") ? "" : "/"}${path}`;
+
+  console.log("Download URL:", url);
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    alert("File not found");
+    return;
+  }
+
+  const blob = await response.blob();
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${title || "file"}.pdf`;
+  link.click();
+
+  URL.revokeObjectURL(link.href);
+};
 
   return (
     <div className="min-h-screen py-16 bg-gray-50">
@@ -86,13 +123,21 @@ const TeacherResources = () => {
                       </p>
                     </div>
 
-                    <Button
+                    {/* <Button
                       onClick={() => handleDownload(resource)}
                       className="w-full bg-red-600 hover:bg-red-700 text-white text-xs"
                     >
                       <Download className="h-4 w-4 mr-2" />
                       Download
-                    </Button>
+                    </Button> */}
+ <button
+  onClick={(e) =>
+    handleDownload(resource.filePath || "", resource.title, e)
+  }
+  className="text-primary hover:underline text-xs"
+>
+  <Download className="h-4 w-4" />
+</button>
 
                   </CardContent>
                 </Card>
