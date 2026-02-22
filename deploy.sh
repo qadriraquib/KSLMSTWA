@@ -37,6 +37,7 @@ if [ $? -eq 0 ]; then
     docker push $BACKEND_IMAGE
     docker push $FRONTEND_IMAGE
 
+    docker logout "$REGISTRY_HOST" || true
 
     echo " Connecting to server ($SERVER_IP) to deploy..."
     ssh -i $SSH_KEY $SERVER_USER@$SERVER_IP << EOF
