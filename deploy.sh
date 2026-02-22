@@ -6,6 +6,9 @@ SERVER_USER="root"
 SERVER_IP="147.93.111.2"
 SERVER_PATH="/root/kslmstwa"
 SSH_KEY="yaseen_hostinger"
+REGISTRY_HOST="147.93.111.2:5000"
+DOCKER_USERNAME="yaseen-docker"
+DOCKER_PASSWORD="yaseen@123@"
 
 echo " Starting deployment process..."
 
@@ -17,6 +20,18 @@ docker compose build
 
 if [ $? -eq 0 ]; then
     echo " Build successful!"
+
+    if [ -z "$DOCKER_USERNAME" ] || [ -z "$DOCKER_PASSWORD" ]; then
+            echo "DOCKER_USERNAME or DOCKER_PASSWORD is not set in the script. Aborting push to registry."
+            exit 1
+    fi
+
+    echo " Logging into Docker registry ($REGISTRY_HOST)..."
+    echo "$DOCKER_PASSWORD" | docker login "$REGISTRY_HOST" -u "$DOCKER_USERNAME" --password-stdin
+    if [ $? -ne 0 ]; then
+        echo " Docker login failed. Aborting deployment."
+        exit 1
+    fi
     
     echo " Pushing images to registry..."
     docker push $BACKEND_IMAGE
