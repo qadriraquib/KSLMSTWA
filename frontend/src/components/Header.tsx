@@ -162,9 +162,9 @@ export const Header = () => {
         Karnataka State Linguistic Minorities School Teachers Welfare Association
       </h1>
 
-      {/* <p className="text-[11px] md:text-[12px] text-gray-600 italic mt-1">
-        Together We Can And Together We Will
-      </p> */}
+      <p className="text-[11px] md:text-[12px] text-gray-600 italic mt-1">
+        DRB2/SOR/191/2021-22 Date:22-02-2022
+      </p>
 
     </div>
   </div>
