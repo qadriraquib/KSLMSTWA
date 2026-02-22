@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backEnd
+    image: 147.93.111.2:5000/kslmstwa-backend:1.0.0
+    container_name: kslmstwa-backend
+    ports:
+      - "9002:8001"
+    volumes:
+      - backend_uploads:/app/uploads
+    environment:
+      - DATABASE_URL=postgresql://postgres:root@host.docker.internal:5432/linguistic_db
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: 147.93.111.2:5000/kslmstwa-frontend:1.0.0
+    container_name: kslmstwa-frontend
+    ports:
+      - "9003:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_uploads:
