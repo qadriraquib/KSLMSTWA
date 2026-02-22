@@ -107,7 +107,7 @@ const Index = () => {
 
           <Card className="text-center bg-accent text-accent-foreground">
             <CardHeader>
-              <CardTitle className="text-4xl font-bold">500+</CardTitle>
+              <CardTitle className="text-4xl font-bold">3000+</CardTitle>
               <CardDescription className="text-accent-foreground/80">
                 Team Members
               </CardDescription>
