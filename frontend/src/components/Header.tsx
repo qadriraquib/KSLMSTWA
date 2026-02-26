@@ -134,6 +134,8 @@ export const Header = () => {
   const navigateToResource = (categoryId: string, classId: string, subject: string) => {
     navigate(`/teacher-resources?category=${categoryId}&class=${classId}&subject=${encodeURIComponent(subject)}`);
   };
+const [openCategory, setOpenCategory] = useState<string | null>(null);
+const [openClass, setOpenClass] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
@@ -471,7 +473,7 @@ export const Header = () => {
               </li>
               <li>
                 <Link to="/core-team" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
-                  {t('core-team')}
+               Core Team  
                 </Link>
               </li>
               <li>
@@ -502,58 +504,116 @@ export const Header = () => {
                 )}
               </li>
               {/* Mobile Resources Menu */}
-              <li>
-                <button
-                  className="w-full text-left px-4 py-2 hover:bg-accent rounded-md flex items-center justify-between"
-                  onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
-                >
-                  {t('resources')}
-                  <ChevronDown className={`h-4 w-4 transition-transform ${mobileResourcesOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {mobileResourcesOpen && (
-                  <ul className="ml-4 mt-2 space-y-1">
-                    <li>
-                      <Link
-                        to="/resources"
-                        className="block px-4 py-2 text-sm hover:bg-accent rounded-md"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setMobileResourcesOpen(false);
-                        }}
-                      >
-                        {t('resourcesPage.resourceTeam', 'Resource Team')}
-                      </Link>
-                    </li>
-                    <li className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase">
-                      {t('resourcesPage.teacherResources', 'Resources for Teacher')}
-                    </li>
-                    {teacherResourceCategories.map((category) => (
-                      <li key={category.id}>
-                        <Link
-                          to={`/teacher-resources?category=${category.id}`}
-                          className="block px-4 py-2 text-sm hover:bg-accent rounded-md"
-                          onClick={() => {
-                            setMobileMenuOpen(false);
-                            setMobileResourcesOpen(false);
-                          }}
-                        >
-                          {getCategoryName(category)}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
+             {/* Mobile Resources Menu */}
+<li>
+  <button
+    className="w-full text-left px-4 py-2 hover:bg-accent rounded-md flex items-center justify-between"
+    onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+  >
+    {t('resources')}
+    <ChevronDown className={`h-4 w-4 transition-transform ${mobileResourcesOpen ? 'rotate-180' : ''}`} />
+  </button>
+
+  {mobileResourcesOpen && (
+    <ul className="ml-4 mt-2 space-y-1">
+
+      {/* Resource Team */}
+      <li>
+        <Link
+          to="/resources"
+          className="block px-4 py-2 text-sm hover:bg-accent rounded-md"
+          onClick={() => {
+            setMobileMenuOpen(false);
+            setMobileResourcesOpen(false);
+          }}
+        >
+          {t('resourcesPage.resourceTeam', 'Resource Team')}
+        </Link>
+      </li>
+
+      <li className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase">
+        {t('resourcesPage.teacherResources', 'Resources for Teacher')}
+      </li>
+
+      {/* Categories */}
+      {teacherResourceCategories.map((category) => (
+        <li key={category.id}>
+
+          {/* Category Button */}
+          <button
+            className="w-full text-left px-4 py-2 text-sm hover:bg-accent rounded-md flex justify-between"
+            onClick={() =>
+              setOpenCategory(openCategory === category.id ? null : category.id)
+            }
+          >
+            {getCategoryName(category)}
+            <ChevronRight />
+          </button>
+
+          {/* Classes */}
+          {openCategory === category.id && (
+            <ul className="ml-4 space-y-1">
+
+              {classes.map((cls) => (
+                <li key={cls.id}>
+
+                  {/* Class Button */}
+                  <button
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-accent rounded-md flex justify-between"
+                    onClick={() =>
+                      setOpenClass(openClass === cls.id ? null : cls.id)
+                    }
+                  >
+                    Class {cls.roman}
+                    <ChevronRight />
+                  </button>
+
+                  {/* Subjects */}
+                  {openClass === cls.id && (
+                    <ul className="ml-4 space-y-1">
+
+                      {subjectsByClass[cls.id].map((subject) => (
+                        <li key={subject}>
+                          <button
+                            className="w-full text-left px-4 py-2 text-sm hover:bg-accent rounded-md"
+                            onClick={() => {
+                              navigateToResource(category.id, cls.id, subject);
+                              setMobileMenuOpen(false);
+                              setMobileResourcesOpen(false);
+                              setOpenCategory(null);
+                              setOpenClass(null);
+                            }}
+                          >
+                            {subject}
+                          </button>
+                        </li>
+                      ))}
+
+                    </ul>
+                  )}
+
+                </li>
+              ))}
+
+            </ul>
+          )}
+
+        </li>
+      ))}
+
+    </ul>
+  )}
+</li>
               <li>
                 <Link to="/gallery" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
                   {t('gallery')}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/blog" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
                   {t('blog')}
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/contact" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
                   {t('contact')}

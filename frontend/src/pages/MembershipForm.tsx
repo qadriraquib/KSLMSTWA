@@ -24,9 +24,9 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const GENDERS = ["Male", "Female", "Other"];
-const DESIGNATIONS = ["GPT", "PST", "HST"];
+const DESIGNATIONS = ["GPT", "PST", "HST","Lecturer"];
 const MANAGEMENTS = ["Govt", "Aided", "Unaided"];
-const MEDIUMS = ["Kannada", "English", "Urdu", "Other"];
+const MEDIUMS = ["English", "Urdu", "Marathi","Telugu","Tamil","Malyalam","Others"];
 
 export default function MembershipForm() {
   const emptyForm = {

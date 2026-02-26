@@ -8,6 +8,12 @@ import core3 from "@/assets/core3.jpeg";
 import core4 from "@/assets/core4.jpeg";
 import core5 from "@/assets/core5.jpeg";
 import core6 from "@/assets/core6.jpeg";
+import core7 from "@/assets/core7.jpeg";
+import core8 from "@/assets/core8.jpg";
+import core9 from "@/assets/core9.jpeg";
+import core10 from "@/assets/core10.jpg";
+import core11 from "@/assets/core11.jpeg";
+import core12 from "@/assets/core12.jpg";
 import user from "@/assets/user.png";
 
 type Member = {
@@ -71,6 +77,12 @@ const CoreTeamPage = () => {
       photo: core5,
     },
     {
+      id: 10,
+      name: "Sudhakar Gaikwad",
+      designation: "State Vice President",
+    photo: core10,
+    },
+    {
       id: 6,
       name: "Mohammed Zaki Qazi",
       designation: "Resource Convener",
@@ -78,6 +90,37 @@ const CoreTeamPage = () => {
     //   location: "Guntur",
     //   bio: "Suresh Reddy manages administrative operations, logistics, and institutional partnerships.",
       photo: core6,
+    },
+    {
+      id: 7,
+      name: "Nafees Khan Pathan",
+      designation: "State Vice President",
+      photo: core7,
+    },
+{
+      id: 8,
+      name: "Nizamuddin Watchmaker",
+      designation: "State Joint Secretary",
+    photo: core8,
+    },
+{
+      id: 9,
+      name: "B A Moolimani",
+      designation: "State Vice President",
+    photo: core9,
+    },
+
+{
+      id: 11,
+      name: "Bhomaji Y Kamble",
+      designation: "State Organising Secretary",
+    photo: core11,
+    },
+{
+      id: 12,
+      name: "Ayyub Donur ",
+      designation: "State Treasurer",
+    photo: core12,
     },
   ];
 
