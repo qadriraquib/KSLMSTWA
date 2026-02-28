@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { useNavigate } from "react-router-dom";
 // Images
 import core1 from "@/assets/core1.jpeg";
 import core2 from "@/assets/core2.jpeg";
@@ -36,7 +36,7 @@ const CoreTeamPage = () => {
   const [selected, setSelected] = useState<Member | null>(null);
 const [showMentors, setShowMentors] = useState(false);
 const [zoom, setZoom] = useState(1);
-
+const navigate = useNavigate();
   const coreTeam: Member[] = [
     {
       id: 1,
@@ -173,7 +173,7 @@ const [zoom, setZoom] = useState(1);
 
     {/* Premium Mentors Button */}
    <button
-  onClick={() => setShowMentors(true)}
+  onClick={() => navigate("/mentors")}
   className="
     relative overflow-hidden
     flex items-center gap-3

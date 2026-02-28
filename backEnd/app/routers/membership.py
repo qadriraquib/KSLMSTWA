@@ -165,7 +165,7 @@ def membership_receipt(id: UUID, db: Session = Depends(get_db)):
     c.drawString(
         label_x,
         y,
-        "The form is submitted digitally with a declaration, so no individual signature is required."
+        "I shall abide by all rules and regulations."
     )
 
     c.showPage()
@@ -299,9 +299,21 @@ def export_memberships_pdf(
         row("WhatsApp No", m.whatsapp_no)
         row("Email", m.email)
         row("Address", m.residential_address)
+# ===== Declaration =====
+        y -= 20
 
+        c.setFont("Helvetica-Bold", 9)
+        c.drawString(label_x, y, "Declaration")
+        y -= 14
+
+        c.setFont("Helvetica-Oblique", 9)
+        c.drawString(
+        label_x,
+        y,
+        "I shall abide by all rules and regulations."
+        )
         c.showPage()
 
-    c.save()
+        c.save()
 
     return FileResponse(file_path, filename="memberships_full.pdf")

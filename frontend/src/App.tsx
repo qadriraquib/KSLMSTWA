@@ -24,6 +24,8 @@ import "./i18n/config";
 import Circulars from "./pages/Circulars";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CoreTeamPage from "./pages/CoreTeamPage";
+import MentorsPage from "./pages/MentorsPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -51,6 +53,7 @@ const App = () => (
              {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
               {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
               <Route path="/circulars" element={<Circulars />} />
+              <Route path="/mentors" element={<MentorsPage />} />
                <Route path="/login" element={<LoginPage />} />
                {/* <Route path="/admin/login" element={<Navigate to="/admin/dashboard" replace />} /> */}
                 <Route

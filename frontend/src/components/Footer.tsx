@@ -26,11 +26,11 @@ Together We can And Together We will
                   {t('about')}
                 </Link>
               </li>
-              {/* <li>
-                <Link to="/circulars" className="text-sm opacity-90 hover:opacity-100 transition-opacity">
-                  {t('circulars')}
+              <li>
+                <Link to="/mentors" className="text-sm opacity-90 hover:opacity-100 transition-opacity">
+                  {t('Mentors')}
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link to="/resources" className="text-sm opacity-90 hover:opacity-100 transition-opacity">
                   {t('resources')}
