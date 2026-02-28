@@ -14,8 +14,13 @@ import core9 from "@/assets/core9.jpeg";
 import core10 from "@/assets/core10.jpg";
 import core11 from "@/assets/core11.jpeg";
 import core12 from "@/assets/core12.jpg";
+import core13 from "@/assets/core13.jpeg";
+import core14 from "@/assets/core14.jpeg";
+import core15 from "@/assets/core15.jpeg";
+import core16 from "@/assets/core16.jpeg";
 import user from "@/assets/user.png";
-
+import mentorsGroup from "@/assets/mentors.jpeg";
+import { Users } from "lucide-react"; // add at top
 type Member = {
   id: number;
   name: string;
@@ -29,6 +34,8 @@ type Member = {
 const CoreTeamPage = () => {
   const { t } = useTranslation();
   const [selected, setSelected] = useState<Member | null>(null);
+const [showMentors, setShowMentors] = useState(false);
+const [zoom, setZoom] = useState(1);
 
   const coreTeam: Member[] = [
     {
@@ -122,6 +129,31 @@ const CoreTeamPage = () => {
       designation: "State Treasurer",
     photo: core12,
     },
+    {
+      id: 13,
+      name: "Ahmed Ali Nadaf",
+      designation: "State Executive Member",
+      photo: core13,
+    },
+{
+      id: 14,
+      name: "Sushitha",
+      designation: "State Organising Secretary",
+    photo: core14,
+    },
+{
+      id: 15,
+      name: "Sardar Attar",
+      designation: "State Organising Secretary",
+    photo: core15,
+    },
+{
+      id: 16,
+      name: "Venkat Rao",
+      designation: "State Executive Member",
+    photo: core16,
+    },
+
   ];
 
   return (
@@ -129,16 +161,61 @@ const CoreTeamPage = () => {
       <div className="container mx-auto px-4">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <h1 className="text-4xl font-bold mb-4 text-primary">
-            { "Core Team"}
-          </h1>
+       {/* Header */}
+{/* Header */}
+<div className="flex flex-col items-center mb-14">
 
-          <p className="text-xl text-muted-foreground">
-            {
-              "Leadership guiding our mission and vision"}
-          </p>
-        </div>
+  <div className="flex items-center gap-5 flex-wrap justify-center">
+
+    <h1 className="text-4xl font-bold text-primary">
+      Core Team
+    </h1>
+
+    {/* Premium Mentors Button */}
+   <button
+  onClick={() => setShowMentors(true)}
+  className="
+    relative overflow-hidden
+    flex items-center gap-3
+    px-6 py-3 rounded-full
+    font-semibold text-white
+    bg-gradient-to-r from-blue-600 to-indigo-600
+    shadow-lg shadow-blue-500/30
+    transition-all duration-300
+    hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/40
+    active:scale-95
+  "
+>
+  {/* Shine Effect */}
+  <span className="
+    absolute inset-0
+    bg-gradient-to-r from-transparent via-white/40 to-transparent
+    translate-x-[-100%]
+    hover:translate-x-[100%]
+    transition-transform duration-700
+  " />
+
+  {/* Icon */}
+  <Users size={20} />
+
+  {/* 🔥 Two-line text container */}
+  <div className="flex flex-col leading-tight text-left">
+    <span className="font-semibold">Our Mentors</span>
+    <span className="text-xs text-blue-100">
+      Click to view
+    </span>
+  </div>
+
+</button>
+
+  </div>
+
+  <p className="text-xl text-muted-foreground mt-4 text-center">
+    Leadership guiding our mission and vision
+  </p>
+
+</div>
+{/* ===== Mentors Group Button ===== */}
 
         {/* Team Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
@@ -226,10 +303,58 @@ const CoreTeamPage = () => {
             </div>
           </div>
         )}
+{/* ===== Mentors Image Modal ===== */}
+{showMentors && (
+  <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
 
+    <div className="relative max-w-5xl w-full p-4">
+
+      {/* Close Button */}
+      <button
+        onClick={() => {
+          setShowMentors(false);
+          setZoom(1);
+        }}
+        className="absolute top-2 right-2 text-white text-2xl"
+      >
+        ✕
+      </button>
+
+      {/* Zoom Controls */}
+      <div className="absolute top-2 left-2 flex gap-2">
+        <button
+          onClick={() => setZoom((z) => Math.min(z + 0.2, 3))}
+          className="bg-white px-3 py-1 rounded font-bold"
+        >
+          +
+        </button>
+
+        <button
+          onClick={() => setZoom((z) => Math.max(z - 0.2, 1))}
+          className="bg-white px-3 py-1 rounded font-bold"
+        >
+          −
+        </button>
+      </div>
+
+      {/* Image */}
+      <div className="overflow-auto max-h-[80vh] rounded-xl">
+        <img
+          src={mentorsGroup}
+          alt="Mentors Group"
+          style={{ transform: `scale(${zoom})` }}
+          className="mx-auto transition"
+        />
+      </div>
+
+    </div>
+  </div>
+)}
       </div>
     </div>
+    
   );
+ 
 };
 
 export default CoreTeamPage;

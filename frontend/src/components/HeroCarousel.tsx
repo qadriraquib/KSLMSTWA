@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import heroImage from '@/assets/hero-education.jpg';
-import crausImg1 from '@/assets/1.jpeg';
+import crausImg1 from '@/assets/5.jpeg';
 import crausImg2 from '@/assets/2.jpeg';
 import crausImg3 from '@/assets/3.jpeg';
 const slides = [
@@ -66,18 +66,21 @@ export const HeroCarousel = () => {
   className="w-full h-full object-cover"
 />
 
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 flex items-center justify-center">
-                  <div className="container mx-auto px-4 text-center">
-                    <blockquote className="text-white">
-                      <p className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl mx-auto">
-                        "{slide.text}"
-                      </p>
-                      <footer className="text-lg md:text-xl opacity-90">
-                        — {slide.author}
-                      </footer>
-                    </blockquote>
-                  </div>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 flex items-end justify-center pb-10 md:pb-16">
+  <div className="container mx-auto px-4 text-center">
+    <blockquote className="text-white">
+      
+      <p className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 max-w-4xl mx-auto">
+        "{slide.text}"
+      </p>
+
+      <footer className="text-lg md:text-xl opacity-90">
+        — {slide.author}
+      </footer>
+
+    </blockquote>
+  </div>
+</div>
               </div>
             </CarouselItem>
           ))}
