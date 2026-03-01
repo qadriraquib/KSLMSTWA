@@ -351,7 +351,7 @@ const handleSubmit = async () => {
             onChange={(e) => setAgree(e.target.checked)}
           />
           <p className="text-sm">
-            I hereby declare that the above information is true and correct.
+            I shall abide by all Rules and Regulations.
           </p>
         </div>
 

@@ -8,9 +8,9 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import heroImage from '@/assets/hero-education.jpg';
-import crausImg1 from '@/assets/5.jpeg';
-import crausImg2 from '@/assets/2.jpeg';
-import crausImg3 from '@/assets/3.jpeg';
+import crausImg1 from '@/assets/8.jpeg';
+import crausImg2 from '@/assets/9.jpeg';
+import crausImg3 from '@/assets/11.jpeg';
 const slides = [
   {
     image: crausImg1,
