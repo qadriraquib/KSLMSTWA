@@ -10,7 +10,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import heroImage from '@/assets/hero-education.jpg';
 import crausImg1 from '@/assets/8.jpeg';
 import crausImg2 from '@/assets/9.jpeg';
-import crausImg3 from '@/assets/11.jpeg';
+import crausImg11 from '@/assets/11.jpeg';
 const slides = [
   {
     image: crausImg1,
@@ -23,7 +23,7 @@ const slides = [
     author: 'Dr Zakir Husain.',
   },
   {
-    image: crausImg3,
+    image: crausImg11,
     text: 'A child’s imagination blossoms best in the mother tongue.',
     author: 'Rabindranath Tagore',
   },
