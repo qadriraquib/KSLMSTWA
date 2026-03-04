@@ -311,10 +311,15 @@ const [openClass, setOpenClass] = useState<string | null>(null);
                         {t('resourcesPage.resourceTeam', 'Resource Team')}
                       </Link>
                     </DropdownMenuItem>
-                    
+                    {/* Marathi Resource Page */}
+<DropdownMenuItem asChild>
+  <Link to="/marathi-resources" className="cursor-pointer">
+    Marathi Resource
+  </Link>
+</DropdownMenuItem>
                     {/* Resources for Teacher Header */}
                     <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-t mt-1 pt-2">
-                      {t('resourcesPage.teacherResources', 'Resources for Teacher')}
+                      {t('resourcesPage.teacherResources', 'Urdu Resources')}
                     </div>
                     
                     {/* Teacher Resource Categories with nested submenus */}
@@ -530,9 +535,20 @@ const [openClass, setOpenClass] = useState<string | null>(null);
           {t('resourcesPage.resourceTeam', 'Resource Team')}
         </Link>
       </li>
-
+<li>
+  <Link
+    to="/marathi-resources"
+    className="block px-4 py-2 text-sm hover:bg-accent rounded-md"
+    onClick={() => {
+      setMobileMenuOpen(false);
+      setMobileResourcesOpen(false);
+    }}
+  >
+    Marathi Resource
+  </Link>
+</li>
       <li className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase">
-        {t('resourcesPage.teacherResources', 'Resources for Teacher')}
+        {t('resourcesPage.teacherResources', 'Urdu Resources')}
       </li>
 
       {/* Categories */}

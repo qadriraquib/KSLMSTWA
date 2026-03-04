@@ -25,6 +25,7 @@ import Circulars from "./pages/Circulars";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CoreTeamPage from "./pages/CoreTeamPage";
 import MentorsPage from "./pages/MentorsPage";
+import MarathiResources from "./pages/MarathiResources";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
               <Route path="/core-team" element={<CoreTeamPage />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/teacher-resources" element={<TeacherResources />} />
+              <Route path="/marathi-resources" element={<MarathiResources />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />

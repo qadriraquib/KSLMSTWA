@@ -11,11 +11,18 @@ import heroImage from '@/assets/hero-education.jpg';
 import crausImg1 from '@/assets/8.jpeg';
 import crausImg2 from '@/assets/9.jpeg';
 import crausImg11 from '@/assets/11.jpeg';
+import crausImg12 from '@/assets/12.jpeg';
+
 const slides = [
-  {
-    image: crausImg1,
+   {
+    image: crausImg12,
     text: 'Education must begin in the mother tongue.',
     author: 'Mahatma Gandhi',
+  },
+  {
+    image: crausImg1,
+    text: 'If you talk to a man in a language he understands, that goes to his head. If you talk to him in his language, that goes to his heart.',
+    author: 'Nelson Mandela',
   },
   {
     image: crausImg2,
