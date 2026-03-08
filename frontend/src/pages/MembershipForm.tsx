@@ -160,12 +160,17 @@ const handleSubmit = async () => {
             />
 
             <Input
-              type="date"
-              value={form.date_of_birth}
-              onChange={(e) =>
-                setForm({ ...form, date_of_birth: e.target.value })
-              }
-            />
+  type="text"
+  placeholder="Date of Birth"
+  value={form.date_of_birth}
+  onFocus={(e) => (e.target.type = "date")}
+  onBlur={(e) => {
+    if (!e.target.value) e.target.type = "text";
+  }}
+  onChange={(e) =>
+    setForm({ ...form, date_of_birth: e.target.value })
+  }
+/>
 
             <Select
               value={form.gender}
