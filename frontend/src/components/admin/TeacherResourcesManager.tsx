@@ -34,11 +34,12 @@ const subjectsByClass: Record<string, string[]> = {
   '2': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
   '3': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
   '4': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
-  '5': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
+  '5': ['English', 'Mathematics', 'EVS', 'Urdu', 'Kannada'],
   '6': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
   '7': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
   '8': ['English', 'Mathematics', 'Science', 'Social Studies', 'Urdu', 'Kannada'],
 };
+
 
 export function TeacherResourcesManager() {
   const [resources, setResources] = useState<TeacherResource[]>([]);
