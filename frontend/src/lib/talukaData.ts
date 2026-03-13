@@ -5,7 +5,7 @@ export const DISTRICT_TALUKAS: Record<string, string[]> = {
   ],
   "Chikodi": [
     "Athani","Chikkodi", "Gokak",
-    "Hukkeri","Raybag","Kagawad"
+    "Hukkeri","Raybag","Kagawad","Nippani","Mudaalgi"
   ],
   "Bagalkot": [
     "Badami", "Bagalkot", "Bilgi", "Hungund", "Jamkhandi", "Mudhol","Terdal"
