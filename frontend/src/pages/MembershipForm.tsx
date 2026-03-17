@@ -22,7 +22,8 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-
+import { useToast } from "@/components/ui/use-toast";
+import { checkMobile } from "@/lib/api/membership";
 const GENDERS = ["Male", "Female", "Other"];
 const DESIGNATIONS = ["GPT", "PST", "HST","Lecturer"];
 const MANAGEMENTS = ["Govt", "Aided", "Unaided"];
@@ -56,6 +57,8 @@ export default function MembershipForm() {
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 const [membershipId, setMembershipId] = useState("");
+const [mobileError, setMobileError] = useState("");
+const { toast } = useToast();
 
   // ===============================
   // VALIDATIONS
@@ -67,6 +70,8 @@ const [membershipId, setMembershipId] = useState("");
     email === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handlePreview = () => {
+    if (mobileError) return; // ✅ block if duplicate exists
+
     if (!isValidMobile(form.mobile_no)) {
       setErrorMessage("Enter a valid 10-digit mobile number.");
       setErrorOpen(true);
@@ -86,7 +91,8 @@ const handleSubmit = async () => {
   try {
     const result = await createMembership(form);
 
-    setMembershipId(result.membership_no);
+    // ✅ SUCCESS DIALOG
+    setMembershipId(result.membership_id);
     setPreview(false);
     setSuccessOpen(true);
 
@@ -95,12 +101,22 @@ const handleSubmit = async () => {
       window.location.href = "/";
     }, 2000);
 
-  } catch (e: any) {
+  }
+ catch (e: any) {
+  if (e.message.includes("Mobile number already registered")) {
+    setMobileError(e.message);
+    setPreview(false);
+
+    setTimeout(() => {
+      document.getElementById("mobile")?.focus();
+    }, 100);
+
+  } else {
     setErrorMessage(e.message);
     setErrorOpen(true);
   }
+}
 };
-
 
   const talukas = form.district
     ? DISTRICT_TALUKAS[form.district] || []
@@ -314,14 +330,40 @@ const handleSubmit = async () => {
               </SelectContent>
             </Select>
 
-            <Input
-              placeholder="Mobile No"
-              value={form.mobile_no}
-              onChange={(e) =>
-                setForm({ ...form, mobile_no: e.target.value })
-              }
-            />
+      <Input
+  id="mobile"
+  className={mobileError ? "border-red-500 focus-visible:ring-red-500" : ""}
+  placeholder="Mobile No"
+  value={form.mobile_no}
+  onChange={(e) => {
+    setForm({ ...form, mobile_no: e.target.value });
+    setMobileError("");
+  }}
+ onBlur={async () => {
+  if (form.mobile_no.length === 10) {
+    try {
+      await checkMobile(form.mobile_no);
+    } catch (e: any) {
+      if (e.message.includes("already registered")) {
+        const id = e.message.replace(
+          "Mobile number already registered with Membership ID: ",
+          ""
+        );
 
+        setMobileError(
+          `This mobile number is already registered with Membership ID: ${id}`
+        );
+      }
+    }
+  }
+}}
+/>
+{/* ERROR BELOW INPUT */}
+{mobileError && (
+  <p className="text-red-500 text-sm mt-1">
+    {mobileError}
+  </p>
+)}
             <Input
               placeholder="WhatsApp No"
               value={form.whatsapp_no}
@@ -362,7 +404,7 @@ const handleSubmit = async () => {
 
         <Button
           className="w-full"
-          disabled={!agree}
+          disabled={!agree || !!mobileError}
           onClick={handlePreview}
         >
           Preview & Submit

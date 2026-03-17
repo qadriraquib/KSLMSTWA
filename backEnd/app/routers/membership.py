@@ -31,7 +31,25 @@ from sqlalchemy import func, Integer
 @router.post("")
 def create_membership(data: dict, db: Session = Depends(get_db)):
 
-    # 🔹 Extract numeric part safely
+    mobile = data.get("mobile_no")
+    check_only = data.get("check_only", False)
+
+    # CHECK DUPLICATE MOBILE
+    existing_member = db.query(TeacherMembership).filter(
+        TeacherMembership.mobile_no == mobile
+    ).first()
+
+    if existing_member:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Mobile number already registered with Membership ID: {existing_member.membership_no}"
+        )
+
+    # ONLY CHECK
+    if check_only:
+        return {"message": "Mobile number is available"}
+
+    # ✅ MEMBERSHIP ID GENERATION (CORRECT INDENT)
     last_number = db.query(
         func.max(
             func.cast(
@@ -41,26 +59,38 @@ def create_membership(data: dict, db: Session = Depends(get_db)):
         )
     ).scalar()
 
-    if last_number:
-        next_number = last_number + 1
-    else:
-        next_number = 1
-
+    next_number = (last_number or 0) + 1
     membership_no = f"KSLM{next_number:04d}"
 
-    member = TeacherMembership(
-        **data,
-        membership_no=membership_no
+    # CREATE MEMBER
+    new_member = TeacherMembership(
+        membership_no=membership_no,
+        full_name=data.get("full_name"),
+        father_or_husband_name=data.get("father_or_husband_name"),
+        date_of_birth=data.get("date_of_birth"),
+        gender=data.get("gender"),
+        designation=data.get("designation"),
+        subject_taught=data.get("subject_taught"),
+        institution_name=data.get("institution_name"),
+        management=data.get("management"),
+        medium=data.get("medium"),
+        years_of_experience=data.get("years_of_experience"),
+        district=data.get("district"),
+        taluka=data.get("taluka"),
+        mobile_no=data.get("mobile_no"),
+        whatsapp_no=data.get("whatsapp_no"),
+        email=data.get("email"),
+        residential_address=data.get("residential_address"),
     )
 
-    db.add(member)
+    db.add(new_member)
     db.commit()
-    db.refresh(member)
+    db.refresh(new_member)
 
-    return member
-
-
-# ===============================
+    return {
+        "message": "Membership created successfully",
+        "membership_id": new_member.membership_no
+    }# ===============================
 # GET MEMBERSHIPS
 # ===============================
 @router.get("")
@@ -244,11 +274,19 @@ def export_memberships_pdf(
     if not members:
         raise HTTPException(status_code=404, detail="No records found")
 
+    import os
+    from datetime import datetime
+
     os.makedirs("uploads", exist_ok=True)
-    file_path = "uploads/memberships_full.pdf"
+
+    # ✅ Use unique filename (avoids file lock issues)
+    file_path = f"uploads/memberships_{datetime.now().timestamp()}.pdf"
 
     c = canvas.Canvas(file_path, pagesize=A4)
     width, height = A4
+
+    def safe(value):
+        return str(value) if value else "-"
 
     for m in members:
 
@@ -272,7 +310,7 @@ def export_memberships_pdf(
             c.setFont("Helvetica-Bold", 9)
             c.drawString(label_x, y, label)
             c.setFont("Helvetica", 9)
-            c.drawString(value_x, y, str(value) if value else "-")
+            c.drawString(value_x, y, safe(value))
             y -= gap
 
         # FULL DETAILS
@@ -299,21 +337,40 @@ def export_memberships_pdf(
         row("WhatsApp No", m.whatsapp_no)
         row("Email", m.email)
         row("Address", m.residential_address)
-# ===== Declaration =====
-        y -= 20
 
+        # Declaration
+        y -= 20
         c.setFont("Helvetica-Bold", 9)
         c.drawString(label_x, y, "Declaration")
-        y -= 14
 
+        y -= 14
         c.setFont("Helvetica-Oblique", 9)
         c.drawString(
-        label_x,
-        y,
-        "I shall abide by all rules and regulations."
+            label_x,
+            y,
+            "I shall abide by all rules and regulations."
         )
-        c.showPage()
 
-        c.save()
+        c.showPage()   # ✅ keep inside loop
 
-    return FileResponse(file_path, filename="memberships_full.pdf")
+    # ✅ VERY IMPORTANT
+    c.save()
+
+    return FileResponse(
+        file_path,
+        media_type="application/pdf",
+        filename="memberships_full.pdf"
+    )
+@router.get("/check-mobile")
+def check_mobile(mobile: str, db: Session = Depends(get_db)):
+    existing = db.query(TeacherMembership).filter(
+        TeacherMembership.mobile_no == mobile
+    ).first()
+
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Mobile number already registered with Membership ID: {existing.membership_no}"
+        )
+
+    return {"message": "Mobile available"}

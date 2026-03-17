@@ -61,3 +61,13 @@ export const updateMembership = async (id: string, data: any) => {
     body: JSON.stringify(data),
   });
 };
+export const checkMobile = async (mobile: string) => {
+  const res = await fetch(`${API}/check-mobile?mobile=${mobile}`);
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.detail || "Mobile check failed");
+  }
+
+  return await res.json();
+};

@@ -464,7 +464,7 @@ const [openClass, setOpenClass] = useState<string | null>(null);
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t">
+          <nav className="md:hidden py-4 border-tmax-h-[80vh] overflow-y-auto">
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="block px-4 py-2 hover:bg-accent rounded-md" onClick={() => setMobileMenuOpen(false)}>
@@ -520,7 +520,7 @@ const [openClass, setOpenClass] = useState<string | null>(null);
   </button>
 
   {mobileResourcesOpen && (
-    <ul className="ml-4 mt-2 space-y-1">
+    <ul className="ml-4 mt-2 space-y-1 max-h-[60vh] overflow-y-auto pr-2 scroll-smooth">
 
       {/* Resource Team */}
       <li>
