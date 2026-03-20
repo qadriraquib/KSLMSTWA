@@ -1,15 +1,15 @@
 import { API_URL } from '../../config';
-
+import { BACKEND_URL } from '../../config';
 export const loginAdmin = async (username, password) => {
   try {
-    console.log('Attempting login to:', `${API_URL}/admin/login`);
+    console.log('Attempting login to:', `${BACKEND_URL}/admin/login`);
     
     // Create URLSearchParams instead of FormData for OAuth2
     const formData = new URLSearchParams();
     formData.append('username', username);
     formData.append('password', password);
 
-    const response = await fetch(`${API_URL}/admin/login`, {
+    const response = await fetch(`${BACKEND_URL}/admin/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
