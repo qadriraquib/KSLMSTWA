@@ -9,7 +9,7 @@ export const loginAdmin = async (username, password) => {
     formData.append('username', username);
     formData.append('password', password);
 
-    const response = await fetch(`${BACKEND_URL}/admin/login`, {
+    const response = await fetch(`${API_URL}/admin/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
